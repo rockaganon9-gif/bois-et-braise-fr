@@ -1,59 +1,1528 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1e4634">
-  <meta name="description" content="Bois & Braise : bois de chauffage certifié NF, granulés ENplus A1, bûches densifiées sans colle. Composez votre demande, nous vous rappelons.">
-  <title>Bois & Braise — Le feu, avec intention</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body data-page="home">
-  <div class="announcement">Le bon feu, tout simplement <span>•</span> Demande sans engagement</div>
-  <header class="site-header">
-    <a class="brand" href="index.html" aria-label="Bois & Braise, accueil"><span class="brand-flame">🔥</span><span>Bois & Braise</span></a>
-    <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
-    <nav class="main-nav" aria-label="Navigation principale">
-      <a href="index.html" data-route="home">Accueil</a><a href="catalogue.html" data-route="catalogue">Nos produits</a><a href="conseils.html" data-route="conseils">Conseils & recettes</a><a href="histoire.html" data-route="histoire">Notre histoire</a><a href="contact.html" data-route="contact">Contact</a><a href="faq.html" data-route="faq">FAQ</a>
-    </nav>
-    <button class="request-button" data-open-request>Ma demande <span data-cart-count>0</span><span class="request-total" data-cart-total>0,00 €</span></button>
-  </header>
-  <main id="app" data-view="home">
-    <section class="home-hero">
-      <div class="home-hero-image"></div><div class="home-hero-shade"></div>
-      <div class="hero-content wrap">
-        <p class="eyebrow eyebrow-yellow">Le goût des choses vraies</p>
-        <h1><span>Le feu,</span><br>avec intention.</h1>
-        <p class="hero-copy">Bois de chauffage certifié NF, granulés ENplus A1, bûches densifiées sans colle : tout pour chauffer votre maison et profiter de vos soirées au coin du feu. Allumer quelque chose de vrai.</p>
-        <a class="button button-yellow" href="catalogue.html">Voir nos produits <span>↗</span></a>
-        <div class="hero-note"><span class="hero-note-line"></span>Le bon feu, tout simplement.</div>
+<title>Bois & Braises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,340;0,9..144,420;0,9..144,520;0,9..144,600;1,9..144,420;1,9..144,520&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="bootstrap.min.css" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#F6EFDF;--surface:#FFFBF2;--surface-2:#EDDEC0;
+    --wood:#6E4429;--wood-deep:#432818;--wood-light:#8B5A34;--wood-tint:#EADFC8;
+    --brick:#C1442D;--brick-deep:#9A3220;--brick-tint:#F4DCD2;
+    --forest:#3B5D42;--forest-deep:#274332;--forest-tint:#DCE7D9;
+    --ink:#2A2013;--ink-soft:#6B5C48;--ink-faint:#9C8E76;
+    --line:#DDCBA9;--line-strong:#C1AC85;--shadow:0 18px 40px -20px rgba(42,32,19,.35);
+    --radius-s:6px;--radius-m:12px;--radius-l:22px;
+    --whatsapp:#25D366;--whatsapp-deep:#1DA851;
+    font-size:16px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#15100A;--surface:#1E170F;--surface-2:#2A2015;
+      --wood:#C6935E;--wood-deep:#8B5A34;--wood-light:#D9A971;--wood-tint:#2E2416;
+      --brick:#E2694C;--brick-deep:#F08063;--brick-tint:#3A2019;
+      --forest:#82B187;--forest-deep:#5E8863;--forest-tint:#20301F;
+      --ink:#F2E8D6;--ink-soft:#C7B99A;--ink-faint:#96896D;
+      --line:#3A2F1D;--line-strong:#4E4026;--shadow:0 18px 44px -18px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#15100A;--surface:#1E170F;--surface-2:#2A2015;
+    --wood:#C6935E;--wood-deep:#8B5A34;--wood-light:#D9A971;--wood-tint:#2E2416;
+    --brick:#E2694C;--brick-deep:#F08063;--brick-tint:#3A2019;
+    --forest:#82B187;--forest-deep:#5E8863;--forest-tint:#20301F;
+    --ink:#F2E8D6;--ink-soft:#C7B99A;--ink-faint:#96896D;
+    --line:#3A2F1D;--line-strong:#4E4026;--shadow:0 18px 44px -18px rgba(0,0,0,.6);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:'Work Sans',system-ui,-apple-system,'Segoe UI',sans-serif;line-height:1.5}
+  img{max-width:100%}
+  a{color:inherit}
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:520;line-height:1.08;text-wrap:balance;margin:0}
+  .mono{font-family:'JetBrains Mono',ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
+  :focus-visible{outline:2.5px solid var(--brick);outline-offset:3px}
+  ::selection{background:var(--brick-tint);color:var(--ink)}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  }
+  .container-xl{max-width:1180px}
+  .eyebrow{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brick);font-weight:600}
+
+  /* ===== PAGE ROUTING ===== */
+  .page{display:none}
+  .page.active{display:block;animation:pageFade .35s ease}
+  @keyframes pageFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  /* ===== HEADER ===== */
+  .site-header{position:sticky;top:0;z-index:1040;background:var(--wood-deep);border-bottom:1px solid rgba(255,255,255,.08)}
+  .navbar{padding-block:12px}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+  .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(155deg,var(--wood-light),var(--wood-deep));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .brand-mark svg{width:20px;height:20px}
+  .brand-name{font-family:'Fraunces',serif;font-weight:560;font-size:1.18rem;color:#FBF4E7;letter-spacing:-.01em}
+  .brand-name em{color:var(--brick-deep);background:#FBF4E7;font-style:normal;padding-inline:2px;border-radius:3px}
+  .main-nav .nav-link{color:#E7D9BE;font-weight:500;font-size:.94rem;padding:8px 14px !important;cursor:pointer}
+  .main-nav .nav-link:hover{color:#fff}
+  .main-nav .nav-link.active{color:#fff;font-weight:700}
+  .navbar-toggler{border-color:rgba(231,217,190,.4)}
+  .navbar-toggler-icon{filter:invert(1) brightness(1.6)}
+
+  .cart-pill{display:flex;align-items:center;gap:8px;background:var(--wood-light);border:none;padding:9px 16px 9px 12px;border-radius:999px;color:#fff;font-weight:600;font-size:.88rem;transition:transform .15s,filter .15s}
+  .cart-pill:hover{transform:translateY(-1px);filter:brightness(1.08);color:#fff}
+  .cart-pill .count{background:var(--brick);color:#fff;border-radius:999px;min-width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;padding-inline:2px}
+
+  .btn-lang{background:rgba(255,255,255,.08);border:1px solid rgba(231,217,190,.35);color:#E7D9BE;font-size:.84rem;font-weight:600;padding:8px 12px;border-radius:999px}
+  .btn-lang:hover,.btn-lang:focus{background:rgba(255,255,255,.16);color:#fff}
+  .lang-menu{min-width:190px;padding:6px;border-radius:12px;border:1px solid var(--line)}
+  .lang-menu .dropdown-item{border-radius:8px;font-size:.88rem;padding:8px 10px;display:flex;gap:8px;align-items:center}
+  .lang-menu .dropdown-item.active,.lang-menu .dropdown-item:active{background:var(--wood-tint);color:var(--ink)}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:min(80vh,680px);display:flex;align-items:flex-end;color:#F6F2E4;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;background:linear-gradient(180deg, rgba(30,20,10,.32) 0%, rgba(30,20,10,.58) 55%, rgba(21,16,10,.94) 100%),url('images/hero/hero-flamme.jpg') center 32%/cover no-repeat}
+  .hero-inner{position:relative;z-index:1;padding-block:60px 50px;width:100%}
+  .hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brick-deep);background:rgba(246,242,228,.94);display:inline-block;padding:5px 12px;border-radius:999px;font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:clamp(2.1rem,5.2vw,3.7rem);max-width:16ch;color:#FBF8EE}
+  .hero p.lede{margin-top:18px;max-width:46ch;font-size:1.08rem;color:#E5DFC9;font-weight:400}
+  .hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:44px;border-top:1px solid rgba(246,242,228,.22);padding-top:20px}
+  .hero-stats .stat b{display:block;font-family:'Fraunces',serif;font-size:1.35rem;color:#FBF8EE;font-weight:560}
+  .hero-stats .stat span{font-size:.8rem;color:#C9C2A8}
+  .hero-stats .stat.promo b{color:#F0A468}
+
+  .btn-brick{background:var(--brick);border-color:var(--brick);color:#fff}
+  .btn-brick:hover{background:var(--brick-deep);border-color:var(--brick-deep);color:#fff}
+  .btn-ghost-light{background:rgba(246,242,228,.08);border:1.5px solid rgba(246,242,228,.5);color:#FBF8EE}
+  .btn-ghost-light:hover{background:rgba(246,242,228,.18);color:#fff}
+  .btn-outline-wood{border:1.5px solid var(--line-strong);color:var(--ink);background:transparent}
+  .btn-outline-wood:hover{border-color:var(--wood);color:var(--wood)}
+  .rounded-pill-btn{border-radius:999px;font-weight:600;padding:12px 24px}
+
+  /* ===== TRUST STRIP ===== */
+  .trust-strip{background:var(--wood);color:#F6F0E1}
+  .trust-item{padding:20px 16px;border-left:1px solid rgba(246,240,225,.2);display:flex;flex-direction:column;gap:4px;height:100%}
+  .trust-item:first-child{border-left:none}
+  .trust-item b{font-family:'Fraunces',serif;font-weight:540;font-size:1rem}
+  .trust-item span{font-size:.81rem;color:#E3D8BF}
+  .trust-item.promo{background:rgba(0,0,0,.14)}
+  .trust-item.promo b{color:#FBC7A8}
+  @media (max-width:767px){.trust-item{border-left:none;border-top:1px solid rgba(246,240,225,.2)}.trust-item:first-child{border-top:none}}
+
+  /* ===== QUICKLINKS (home) ===== */
+  .quicklinks{padding-block:76px}
+  .quicklink-card{
+    display:block;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);
+    padding:26px 24px;height:100%;text-decoration:none;color:var(--ink);cursor:pointer;
+    transition:border-color .15s,box-shadow .15s,transform .15s;
+  }
+  .quicklink-card:hover{border-color:var(--wood);box-shadow:var(--shadow);transform:translateY(-3px);color:var(--ink)}
+  .quicklink-num{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--brick);font-weight:700;letter-spacing:.08em}
+  .quicklink-card h3{font-size:1.25rem;margin-top:8px}
+  .quicklink-card p{color:var(--ink-soft);font-size:.9rem;margin-top:8px}
+  .quicklink-arrow{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.82rem;color:var(--wood);font-weight:600}
+
+  /* ===== SECTIONS ===== */
+  section.catalog{padding-block:76px}
+  .section-head p{color:var(--ink-soft);max-width:56ch;margin-top:10px;font-size:1.02rem}
+  .free-delivery-banner{display:inline-flex;align-items:center;gap:10px;background:var(--brick-tint);color:var(--brick-deep);border:1px solid var(--brick);border-radius:999px;padding:9px 18px;font-weight:600;font-size:.9rem;margin-top:18px}
+  .section-photo-strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-top:44px}
+  .section-photo-strip img{height:150px;width:200px;flex:0 0 auto;object-fit:cover;border-radius:var(--radius-m);border:1px solid var(--line)}
+
+  .page-banner{position:relative;border-radius:var(--radius-l);overflow:hidden;margin-bottom:44px;min-height:240px;display:flex;align-items:center}
+  .page-banner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .page-banner .scrim{position:absolute;inset:0;background:linear-gradient(100deg, rgba(30,20,10,.88) 0%, rgba(30,20,10,.58) 46%, rgba(30,20,10,.08) 78%)}
+  .page-banner .content{position:relative;z-index:1;padding:36px 40px;max-width:34ch;color:#F6F2E4}
+  .page-banner h3{font-size:1.5rem;color:#FBF8EE}
+  .page-banner p{margin-top:10px;color:#DCD5BC;font-size:.97rem}
+
+  .pack-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-m);padding:20px 20px 18px;display:flex;flex-direction:column;gap:10px;position:relative;height:100%;transition:border-color .15s, box-shadow .15s, transform .15s}
+  .pack-card:hover{border-color:var(--wood);box-shadow:var(--shadow);transform:translateY(-2px)}
+  .pack-card.best::before{content:attr(data-best-label);position:absolute;top:-11px;left:16px;background:var(--brick);color:#fff;font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:999px}
+  .pack-top{display:flex;justify-content:space-between;align-items:baseline}
+  .pack-size{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:560}
+  .pack-size .unit{font-size:.95rem;color:var(--ink-soft);font-weight:400;margin-left:4px}
+  .pack-price{font-family:'JetBrains Mono',monospace;font-size:1.28rem;font-weight:700;color:var(--wood)}
+  .pack-rate{font-size:.76rem;color:var(--ink-faint);font-family:'JetBrains Mono',monospace}
+  .free-badge{display:inline-flex;align-items:center;gap:5px;background:var(--brick-tint);color:var(--brick-deep);font-size:.72rem;font-weight:700;padding:3px 9px;border-radius:999px;width:fit-content}
+  .pack-actions{display:flex;align-items:center;gap:10px;margin-top:4px}
+
+  .stepper{display:flex;align-items:center;border:1.5px solid var(--line-strong);border-radius:999px;overflow:hidden;flex-shrink:0}
+  .stepper button{width:32px;height:32px;background:var(--wood-tint);border:none;color:var(--ink);font-size:1.05rem;line-height:1;display:flex;align-items:center;justify-content:center}
+  .stepper button:hover{background:var(--surface-2)}
+  .stepper .qty{width:30px;text-align:center;font-family:'JetBrains Mono',monospace;font-weight:600;font-size:.92rem}
+  .add-btn{flex:1;background:var(--wood);color:#fff;border:none;border-radius:999px;padding:9px 14px;font-weight:600;font-size:.86rem;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:6px}
+  .add-btn:hover{background:var(--wood-deep)}
+  .add-btn.added{background:var(--brick)}
+
+  .granule-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);overflow:hidden;display:flex;flex-direction:column;height:100%;transition:border-color .15s, box-shadow .15s, transform .15s}
+  .granule-card:hover{border-color:var(--wood);box-shadow:var(--shadow);transform:translateY(-3px)}
+  .granule-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface-2)}
+  .granule-media img{width:100%;height:100%;object-fit:cover}
+  .granule-badge{position:absolute;top:12px;left:12px;background:rgba(30,20,10,.8);color:#F3EFDE;font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 10px;border-radius:999px;font-family:'JetBrains Mono',monospace}
+  .granule-body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .granule-body h3{font-size:1.22rem}
+  .granule-body p.desc{color:var(--ink-soft);font-size:.9rem;flex:1}
+  .granule-spec{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--ink-faint);border-top:1px dashed var(--line);padding-top:10px}
+  .granule-price-row{display:flex;align-items:baseline;justify-content:space-between;margin-top:4px}
+  .granule-price{font-family:'JetBrains Mono',monospace;font-size:1.5rem;font-weight:700;color:var(--wood)}
+  .granule-price.quote{font-size:1.05rem;color:var(--brick-deep)}
+  .granule-price small{font-size:.72rem;color:var(--ink-faint);font-weight:400}
+  .granule-foot{display:flex;align-items:center;gap:10px;margin-top:6px}
+
+  .how-step{display:flex;gap:16px;height:100%}
+  .how-num{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:560;color:var(--brick);width:44px;height:44px;border-radius:50%;border:1.5px solid var(--brick);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .how-step h4{font-size:1.05rem;margin-bottom:6px}
+  .how-step p{color:var(--ink-soft);font-size:.92rem}
+  .how-photo{margin-top:52px;border-radius:var(--radius-l);overflow:hidden;position:relative;min-height:220px;display:flex}
+  .how-photo img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .how-photo .scrim{position:absolute;inset:0;background:linear-gradient(0deg,rgba(30,20,10,.8),rgba(30,20,10,0) 60%)}
+  .how-photo .cap{position:relative;z-index:1;padding:20px 26px;color:#F6F2E4;font-size:.9rem;display:flex;align-items:flex-end;width:100%}
+
+  .zone-wrap{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .zone-chip{background:var(--forest-tint);color:var(--forest-deep);border-radius:999px;padding:8px 16px;font-size:.86rem;font-weight:600}
+
+  .contact-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-l);padding:28px;height:100%;display:flex;flex-direction:column;gap:12px}
+  .contact-card .icon-wrap{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+  .contact-card h3{font-size:1.15rem}
+  .contact-card p{color:var(--ink-soft);font-size:.92rem}
+
+  .cta-final{position:relative;padding-block:84px;color:#F6F2E4;overflow:hidden;border-radius:var(--radius-l)}
+  .cta-final .bg{position:absolute;inset:0;background:linear-gradient(120deg, rgba(25,17,9,.9), rgba(25,17,9,.7)), url('images/hero/hero-chaleureux.jpg') center/cover}
+  .cta-final .content{position:relative;z-index:1;text-align:center}
+  .cta-final h2{font-size:clamp(1.8rem,3.6vw,2.6rem);color:#FBF8EE;max-width:22ch;margin-inline:auto}
+  .cta-final p{color:#D9D2B6;margin-top:14px;max-width:44ch;margin-inline:auto}
+
+  footer{background:var(--wood-deep);color:#E6E1CC;padding-block:36px}
+  footer a{color:#E6E1CC;text-decoration:none;font-size:.85rem}
+  footer a:hover{text-decoration:underline}
+  .footer-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#B7A985}
+
+  /* ===== FLOATING BUTTONS ===== */
+  .cart-fab{position:fixed;bottom:22px;right:22px;z-index:1030;background:var(--brick);color:#fff;border:none;border-radius:999px;padding:14px 20px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 34px -12px rgba(193,68,45,.55);font-weight:700;font-size:.92rem;transition:transform .15s}
+  .cart-fab:hover{transform:translateY(-2px);color:#fff}
+  .cart-fab .fab-count{background:rgba(255,255,255,.28);border-radius:999px;min-width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.76rem}
+  .cart-fab[hidden]{display:none}
+
+  .whatsapp-fab{position:fixed;bottom:22px;left:22px;z-index:1030;background:var(--whatsapp);color:#fff;border:none;border-radius:999px;width:56px;height:56px;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 34px -12px rgba(37,211,102,.6);transition:transform .15s;text-decoration:none}
+  .whatsapp-fab:hover{transform:translateY(-2px) scale(1.04);background:var(--whatsapp-deep);color:#fff}
+  .whatsapp-fab svg{width:28px;height:28px}
+
+  /* ===== OFFCANVAS CART ===== */
+  #cartOffcanvas{width:min(440px,100%);background:var(--bg);color:var(--ink)}
+  #cartOffcanvas .offcanvas-header{border-bottom:1px solid var(--line);padding:18px 20px}
+  #cartOffcanvas .offcanvas-title{font-family:'Fraunces',serif;font-size:1.25rem;display:flex;align-items:center;gap:10px}
+  #cartOffcanvas .offcanvas-body{padding:0;display:flex;flex-direction:column}
+  .drawer-back{background:none;border:none;color:var(--ink-soft);font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:6px;padding:0}
+  .drawer-scroll{flex:1;overflow-y:auto;padding:18px 20px}
+  .drawer-foot{border-top:1px solid var(--line);padding:16px 20px 20px;flex-shrink:0;background:var(--surface)}
+
+  .cart-line{display:flex;gap:12px;padding-block:14px;border-bottom:1px solid var(--line)}
+  .cart-line:first-child{padding-top:0}
+  .cart-line .line-info{flex:1;min-width:0}
+  .cart-line .line-info b{display:block;font-size:.95rem;font-weight:600}
+  .cart-line .line-info span{display:block;font-size:.78rem;color:var(--ink-soft);margin-top:2px}
+  .cart-line .line-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .cart-line .line-price{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.92rem}
+  .cart-line .line-remove{background:none;border:none;color:var(--ink-faint);font-size:.76rem;text-decoration:underline;padding:0}
+  .cart-line .line-remove:hover{color:var(--brick)}
+
+  .empty-state{text-align:center;padding:60px 10px;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;gap:14px}
+  .empty-state .icon{font-size:2.4rem}
+
+  .summary-row{display:flex;justify-content:space-between;font-size:.9rem;color:var(--ink-soft);padding-block:3px}
+  .summary-row.total{font-size:1.15rem;font-weight:700;color:var(--ink);padding-top:10px;margin-top:6px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace}
+  .summary-note{font-size:.76rem;color:var(--ink-faint);margin-top:8px}
+
+  .field label{display:block;font-size:.8rem;font-weight:600;margin-bottom:5px;color:var(--ink-soft)}
+  .field .form-control,.field .form-select{background:var(--surface);border:1.5px solid var(--line-strong);color:var(--ink)}
+  .field .form-control:focus,.field .form-select:focus{border-color:var(--wood);box-shadow:0 0 0 .2rem var(--wood-tint)}
+  .checkout-recap{background:var(--surface-2);border-radius:var(--radius-m);padding:14px 16px;margin-bottom:20px;font-size:.85rem}
+  .checkout-recap .cr-row{display:flex;justify-content:space-between;padding-block:2px;color:var(--ink-soft)}
+  .checkout-recap .cr-row b{color:var(--ink);font-weight:600}
+
+  .confirm-wrap{text-align:center;padding-block:16px}
+  .confirm-icon{width:64px;height:64px;border-radius:50%;background:var(--forest-tint);color:var(--forest);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin-inline:auto 18px}
+  .confirm-order-no{font-family:'JetBrains Mono',monospace;color:var(--ink-faint);font-size:.85rem;margin-top:4px}
+  .confirm-recap{text-align:left;background:var(--surface-2);border-radius:var(--radius-m);padding:16px 18px;margin-top:24px;font-size:.86rem}
+  .confirm-recap h5{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+  .confirm-recap .cr-item{display:flex;justify-content:space-between;padding-block:4px;border-bottom:1px dashed var(--line)}
+  .confirm-actions{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+
+  .toast-brand{position:fixed;bottom:100px;right:22px;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:.84rem;font-weight:600;z-index:1050;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none}
+  .toast-brand.show{opacity:1;transform:none}
+</style>
+
+<header class="site-header">
+  <nav class="navbar navbar-expand-lg container-xl mx-auto px-3">
+    <a href="#accueil" class="brand navbar-brand m-0" data-nav-link="accueil">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3-2 3.5-2 6.5a2 2 0 004 0c0-1-.6-1.6-.6-1.6S15 9.5 15 12.5A5 5 0 015 12.5c0-3.5 2.7-5 3.5-7" stroke="#F6F2E4" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="brand-name">Bois <em>&amp;</em> Braises</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavCollapse" aria-label="Menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavCollapse">
+      <ul class="navbar-nav main-nav ms-lg-4 me-lg-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#buches" data-nav-link="buches" data-i18n="navBuches">Bois de chauffage</a></li>
+        <li class="nav-item"><a class="nav-link" href="#granules" data-nav-link="granules" data-i18n="navGranules">Granulés</a></li>
+        <li class="nav-item"><a class="nav-link" href="#livraison" data-nav-link="livraison" data-i18n="navLivraison">Livraison</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact" data-nav-link="contact" data-i18n="navContact">Contact</a></li>
+      </ul>
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <div class="dropdown">
+          <button class="btn-lang dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="langToggle">🇫🇷 FR</button>
+          <ul class="dropdown-menu lang-menu" aria-labelledby="langToggle" id="langMenu"></ul>
+        </div>
+        <button class="cart-pill" id="openCartBtn" type="button">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l2.4 12.4a2 2 0 002 1.6h8.4a2 2 0 002-1.6L21 8H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="21" r="1.3" fill="currentColor"/><circle cx="18" cy="21" r="1.3" fill="currentColor"/></svg>
+          <span data-i18n="cartLabel">Panier</span> <span class="count mono" id="headerCount">0</span>
+        </button>
       </div>
-      <div class="hero-index">01 <span>/</span> 04</div>
-    </section>
-    <section class="featured-section section-green">
-      <div class="wrap">
-        <div class="section-heading heading-light"><p class="eyebrow eyebrow-yellow">Sélection Bois & Braise</p><h2>Nos produits</h2><a href="catalogue.html" class="text-link">Tout voir <span>↗</span></a></div>
-        <div class="featured-grid" data-featured></div>
-      </div>
-    </section>
-    <section class="categories-section section-yellow">
-      <div class="wrap"><div class="section-heading"><p class="eyebrow">Selon votre façon de vivre le feu</p><h2>Trouvez votre feu</h2></div>
-        <div class="category-grid">
-          <a class="category-tile" href="catalogue.html?categorie=bois"><img src="images/pallettes.jpg" alt="Bûches de bois empilées près d'un feu" loading="lazy"><span>Bois de chauffage <b>↗</b></span></a>
-          <a class="category-tile" href="catalogue.html?categorie=granules"><img src="images/10f257ce-9b29-49ee-a8a4-07ee7c95473d.jfif" alt="Granulés de bois en sac" loading="lazy"><span>Granulés <b>↗</b></span></a>
-          <a class="category-tile" href="catalogue.html?categorie=densifie"><img src="images/images (9).jfif" alt="Bricchette densificate e legna da ardere" loading="lazy"><span>Bûches densifiées <b>↗</b></span></a>
-          <a class="category-tile" href="catalogue.html?categorie=allumage"><img src="images/0f726f19-8251-444e-8aa5-f65d324781d1.jfif" alt="Bois d'allumage sec" loading="lazy"><span>Allumage <b>↗</b></span></a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===================== PAGE: ACCUEIL ===================== -->
+  <section class="page" id="page-accueil" data-page="accueil">
+    <div class="hero">
+      <div class="hero-bg"></div>
+      <div class="container-xl mx-auto px-3 hero-inner">
+        <span class="hero-eyebrow" data-i18n="heroEyebrow">Livraison partout en Europe</span>
+        <h1 data-i18n="heroTitle">Le bois qui tient sa promesse de chaleur.</h1>
+        <p class="lede" data-i18n="heroLede">Bûches de chêne, frêne, hêtre et charme — très sèches, coupées et prêtes à flamber — et granulés premium livrés en palette complète, partout en Europe.</p>
+        <div class="d-flex gap-3 flex-wrap mt-4">
+          <a href="#buches" class="btn btn-brick rounded-pill-btn" data-i18n="heroCtaWood">Voir le bois de chauffage</a>
+          <a href="#granules" class="btn btn-ghost-light rounded-pill-btn" data-i18n="heroCtaPellets">Voir les granulés</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b data-i18n="statEssencesB">4 essences</b><span data-i18n="statEssencesS">Chêne · frêne · hêtre · charme</span></div>
+          <div class="stat"><b data-i18n="statCutB">33 / 50 cm</b><span data-i18n="statCutS">Longueurs de coupe</span></div>
+          <div class="stat promo"><b data-i18n="statFreeB">≥ 20 stères</b><span data-i18n="statFreeS">Livraison gratuite</span></div>
         </div>
       </div>
-    </section>
-    <section class="how-section section-beige"><div class="wrap how-grid"><div><p class="eyebrow">Simple comme un feu de cheminée</p><h2>Comment<br>ça marche<span class="yellow-period">.</span></h2><p class="muted">Aucun compte à créer, aucun paiement en ligne, aucun engagement.</p></div><div class="steps"><article><span>01</span><div><h3>Vous composez votre sélection</h3><p>Choisissez vos produits et les quantités souhaitées.</p></div></article><article><span>02</span><div><h3>Vous nous envoyez votre demande</h3><p>En quelques instants, sans créer de compte ni payer en ligne.</p></div></article><article><span>03</span><div><h3>Nous vous rappelons</h3><p>Nous confirmons ensemble disponibilité, livraison et prix final.</p></div></article></div></div></section>
-    <section class="story-band section-green"><div class="story-photo"><img src="images/chene.jpg" alt="Flammes dans une cheminée" loading="lazy"></div><div class="story-copy"><p class="eyebrow eyebrow-yellow">Notre promesse</p><h2>Nous ne vendons pas seulement du bois.<br><span>Nous vous apportons la chaleur.</span></h2><p>Des produits sélectionnés avec soin, des conseils sans détour et une équipe qui prend le temps de vous rappeler.</p><a class="button button-outline" href="histoire.html">Notre histoire <span>↗</span></a></div></section>
-    <section class="proof-strip"><article style="--proof-image:url('images/pallettes.jpg')"><span>Bois bien sec</span><p>Un taux d'humidité maîtrisé, pour un feu efficace.</p></article><article style="--proof-image:url('images/05c69ff2-a266-4863-8eaf-58d30fbf2f75.jfif')"><span>Granulés certifiés</span><p>La qualité ENplus A1 pour une chaleur régulière.</p></article><article style="--proof-image:url('images/images (9).jfif')"><span>Sans colle</span><p>Des bûches densifiées pensées pour brûler proprement.</p></article></section>
-  </main>
-  <footer class="site-footer"><div class="wrap footer-grid"><div class="footer-brand"><a class="brand brand-light" href="index.html"><span class="brand-flame">🔥</span><span>Bois & Braise</span></a><p>Le bon feu, tout simplement.<br>Des produits choisis pour réchauffer vos maisons et vos moments.</p></div><div><h3>Le site</h3><a href="catalogue.html">Nos produits</a><a href="conseils.html">Conseils & recettes</a><a href="histoire.html">Notre histoire</a><a href="faq.html">Questions fréquentes</a></div><div><h3>Une question ?</h3><a href="mailto:boischauffageeit@gmail.com">boischauffageeit@gmail.com</a><a href="tel:+33353014218">03 53 01 42 18</a><a href="contact.html">Nous contacter ↗</a></div></div><div class="wrap footer-bottom"><span>© 2026 Bois & Braise</span><div><a href="garantie.html">Garantie & conditions</a><a href="mentions-legales.html">Mentions légales</a><a href="confidentialite.html">Confidentialité</a></div></div></footer>
-  <script src="script.js" defer></script>
-</body>
-</html>
+    </div>
+
+    <div class="trust-strip">
+      <div class="container-xl mx-auto px-3">
+        <div class="row g-0">
+          <div class="col-6 col-md-3"><div class="trust-item"><b data-i18n="trustDryB">Bois très sec</b><span data-i18n="trustDryS">Prêt à brûler dès la livraison</span></div></div>
+          <div class="col-6 col-md-3"><div class="trust-item"><b data-i18n="trustMixB">Mélange de feuillus</b><span data-i18n="trustMixS">Chêne, frêne, hêtre, charme</span></div></div>
+          <div class="col-6 col-md-3"><div class="trust-item"><b data-i18n="trustCutB">Coupe 33 ou 50 cm</b><span data-i18n="trustCutS">Adapté à votre foyer ou poêle</span></div></div>
+          <div class="col-6 col-md-3"><div class="trust-item promo"><b data-i18n="trustFreeB">🚚 Livraison gratuite</b><span data-i18n="trustFreeS">Dès 20 stères, partout en Europe</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quicklinks">
+      <div class="container-xl mx-auto px-3">
+        <div class="section-head text-center mx-auto" style="max-width:60ch">
+          <h2 data-i18n="quickTitle">Que cherchez-vous ?</h2>
+        </div>
+        <div class="row g-3 mt-2">
+          <div class="col-sm-6 col-lg-3">
+            <a class="quicklink-card" href="#buches" data-nav-link="buches">
+              <span class="quicklink-num mono">01</span>
+              <h3 data-i18n="navBuches">Bois de chauffage</h3>
+              <p data-i18n="quickWoodText">Bûches sèches en stères, livrées chez vous.</p>
+              <span class="quicklink-arrow">→</span>
+            </a>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <a class="quicklink-card" href="#granules" data-nav-link="granules">
+              <span class="quicklink-num mono">02</span>
+              <h3 data-i18n="navGranules">Granulés</h3>
+              <p data-i18n="quickPelletsText">Palettes de granulés premium, trois qualités.</p>
+              <span class="quicklink-arrow">→</span>
+            </a>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <a class="quicklink-card" href="#livraison" data-nav-link="livraison">
+              <span class="quicklink-num mono">03</span>
+              <h3 data-i18n="navLivraison">Livraison</h3>
+              <p data-i18n="quickDeliveryText">Comment commander et nos zones en Europe.</p>
+              <span class="quicklink-arrow">→</span>
+            </a>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <a class="quicklink-card" href="#contact" data-nav-link="contact">
+              <span class="quicklink-num mono">04</span>
+              <h3 data-i18n="navContact">Contact</h3>
+              <p data-i18n="quickContactText">Email, WhatsApp — on vous répond vite.</p>
+              <span class="quicklink-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-xl mx-auto px-3 pb-5">
+      <div class="cta-final">
+        <div class="bg"></div>
+        <div class="content px-3">
+          <h2 data-i18n="ctaTitle">Prêt pour l'hiver ?</h2>
+          <p data-i18n="ctaText">Composez votre commande de bois et de granulés en quelques clics, ou contactez-nous directement par WhatsApp.</p>
+          <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
+            <a href="#buches" class="btn btn-brick rounded-pill-btn" data-i18n="ctaBtnOrder">Commander maintenant</a>
+            <a href="https://wa.me/33748142228" target="_blank" rel="noopener" class="btn btn-ghost-light rounded-pill-btn" data-i18n="ctaBtnWhatsapp">Écrire sur WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PAGE: BUCHES ===================== -->
+  <section class="page catalog" id="page-buches" data-page="buches">
+    <div class="container-xl mx-auto px-3">
+      <div class="page-banner">
+        <img src="images/buches/tas-buches-hangar.jpg" alt="Grand tas de bûches de chauffage prêtes à être livrées">
+        <div class="scrim"></div>
+        <div class="content">
+          <span class="eyebrow" style="color:#F0A468" data-i18n="buchesEyebrow">Bois de chauffage</span>
+          <h3 data-i18n="buchesBannerTitle">Mélange chêne, frêne, hêtre, charme</h3>
+          <p data-i18n="buchesBannerText">Coupé en longueurs de 33 cm et 50 cm, fendu et stocké au sec. Choisissez votre quantité en stères ci-dessous.</p>
+        </div>
+      </div>
+
+      <div class="section-head">
+        <h2 data-i18n="buchesHeadTitle">Choisissez votre quantité</h2>
+        <p data-i18n="buchesHeadText">Le stère est l'unité de mesure du bois de chauffage empilé. Plus la commande est grande, plus le prix au stère baisse.</p>
+        <span class="free-delivery-banner" data-i18n="buchesFreeBanner">🚚 Livraison gratuite partout en Europe dès 20 stères commandés</span>
+      </div>
+
+      <div class="row g-3" id="bucheGrid"></div>
+      <p class="summary-note mt-3" data-i18n="buchesNoteDelivery">Pour les commandes de moins de 20 stères, les frais de livraison sont calculés selon votre pays et votre secteur, et vous seront confirmés avant expédition.</p>
+
+      <div class="section-photo-strip">
+        <img src="images/buches/aerien-caisses.jpg" alt="Vue aérienne de nos caisses de bois de chauffage">
+        <img src="images/buches/rangee-caisses-ciel.jpg" alt="Rangée de caisses de bois de chauffage">
+        <img src="images/buches/pile-foret.jpg" alt="Pile de bûches fendues en forêt">
+        <img src="images/buches/caisse-produit.jpg" alt="Caisse individuelle de bois de chauffage">
+        <img src="images/buches/rangees-buches.jpg" alt="Longues rangées de bûches empilées">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PAGE: GRANULES ===================== -->
+  <section class="page catalog" id="page-granules" data-page="granules">
+    <div class="container-xl mx-auto px-3">
+      <div class="section-head">
+        <h2 data-i18n="granulesHeadTitle">Granulés de bois</h2>
+        <p data-i18n="granulesHeadText">Palette complète de 66 sacs de 15 kg (990 kg), livraison comprise. Trois qualités disponibles selon votre budget et votre appareil de chauffe.</p>
+      </div>
+
+      <div class="row g-4" id="granuleGrid"></div>
+
+      <div class="section-photo-strip">
+        <img src="images/granules/eo2-palette-blanc.jpg" alt="Palette de granulés de bois emballée">
+        <img src="images/granules/crepito-palette.jpg" alt="Palette de granulés premium">
+        <img src="images/granules/eo2-palette-noir.jpg" alt="Palette de sacs de granulés de bois">
+        <img src="images/granules/eo2-usine.jpg" alt="Chargement de granulés en usine">
+        <img src="images/granules/firestixx-macro.jpg" alt="Granulés de bois FireStixx en gros plan">
+        <img src="images/granules/totalenergies-palette.jpg" alt="Palette de sacs de granulés premium">
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PAGE: LIVRAISON ===================== -->
+  <section class="page" id="page-livraison" data-page="livraison">
+    <div class="container-xl mx-auto px-3 py-5">
+      <div class="section-head">
+        <h2 data-i18n="livHeadTitle">Comment commander</h2>
+        <p data-i18n="livHeadText">Trois étapes, sans compte à créer.</p>
+      </div>
+      <div class="row g-4 mt-1">
+        <div class="col-md-4"><div class="how-step"><span class="how-num mono">1</span><div><h4 data-i18n="how1Title">Choisissez vos produits</h4><p data-i18n="how1Text">Bûches, granulés, ou les deux — sélectionnez vos quantités dans le catalogue.</p></div></div></div>
+        <div class="col-md-4"><div class="how-step"><span class="how-num mono">2</span><div><h4 data-i18n="how2Title">Ajoutez au panier</h4><p data-i18n="how2Text">Ajustez les quantités à tout moment, le total se recalcule automatiquement.</p></div></div></div>
+        <div class="col-md-4"><div class="how-step"><span class="how-num mono">3</span><div><h4 data-i18n="how3Title">Confirmez la livraison</h4><p data-i18n="how3Text">Indiquez votre adresse et la date souhaitée : on s'occupe du reste.</p></div></div></div>
+      </div>
+      <div class="how-photo">
+        <img src="images/lifestyle/chargement-couple.jpg" alt="Livraison de granulés de bois déchargée directement chez le client">
+        <div class="scrim"></div>
+        <div class="cap" data-i18n="howPhotoCap">Livraison directement chez vous, palette ou stères comptés.</div>
+      </div>
+
+      <div class="section-head mt-5">
+        <h2 data-i18n="livZonesTitle">Nos zones de livraison</h2>
+        <p data-i18n="livZonesText">Nous livrons dans toute l'Europe. Si votre pays n'apparaît pas ci-dessous, contactez-nous : nous trouvons presque toujours une solution.</p>
+      </div>
+      <div class="zone-wrap">
+        <span class="zone-chip">🇫🇷 France</span>
+        <span class="zone-chip">🇧🇪 Belgique</span>
+        <span class="zone-chip">🇱🇺 Luxembourg</span>
+        <span class="zone-chip">🇩🇪 Allemagne</span>
+        <span class="zone-chip">🇳🇱 Pays-Bas</span>
+        <span class="zone-chip">🇪🇸 Espagne</span>
+        <span class="zone-chip">🇮🇹 Italie</span>
+        <span class="zone-chip">🇨🇭 Suisse</span>
+      </div>
+      <p class="summary-note mt-3" data-i18n="livFreeReminder">🚚 Livraison gratuite dès 20 stères de bois de chauffage commandés, quelle que soit votre destination en Europe.</p>
+    </div>
+  </section>
+
+  <!-- ===================== PAGE: CONTACT ===================== -->
+  <section class="page" id="page-contact" data-page="contact">
+    <div class="container-xl mx-auto px-3 py-5">
+      <div class="section-head">
+        <h2 data-i18n="contactTitle">Contact</h2>
+        <p data-i18n="contactText">Une question sur un produit, une livraison ou un pays précis ? Écrivez-nous, on répond vite.</p>
+      </div>
+      <div class="row g-3 mt-2">
+        <div class="col-md-6">
+          <div class="contact-card">
+            <span class="icon-wrap" style="background:var(--wood-tint);color:var(--wood)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 5h18v14H3z" stroke="currentColor" stroke-width="1.6"/><path d="M3 6l9 7 9-7" stroke="currentColor" stroke-width="1.6"/></svg>
+            </span>
+            <h3 data-i18n="contactEmailLabel">Email</h3>
+            <p data-i18n="contactEmailText">Pour toute question, écrivez-nous directement.</p>
+            <a class="btn btn-outline-wood rounded-pill-btn" href="mailto:bsdechauffage@gmail.com">bsdechauffage@gmail.com</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="contact-card">
+            <span class="icon-wrap" style="background:#DFF6E7;color:var(--whatsapp-deep)">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.36.65 4.56 1.79 6.45L4 29l7.73-1.75a11.9 11.9 0 004.29.8h.01c6.62 0 12.02-5.4 12.02-12.03C28.05 8.4 22.65 3 16.02 3z"/></svg>
+            </span>
+            <h3 data-i18n="contactWhatsappLabel">WhatsApp</h3>
+            <p data-i18n="contactWhatsappText">Réponse rapide, idéal pour confirmer une commande.</p>
+            <a class="btn rounded-pill-btn" style="background:var(--whatsapp);color:#fff" href="https://wa.me/33748142228" target="_blank" rel="noopener">+33 7 48 14 22 28</a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <button class="btn btn-brick rounded-pill-btn" id="contactOrderBtn" type="button" data-i18n="footerOrderLink">Passer une commande</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container-xl mx-auto px-3">
+    <div class="footer-bottom">
+      <span data-i18n="footerBottomCopy">© Bois &amp; Braises</span>
+      <span data-i18n="footerBottomDelivery">Livraison gratuite dès 20 stères — partout en Europe</span>
+    </div>
+  </div>
+</footer>
+
+<button class="cart-fab" id="cartFab" type="button">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 3h2l2.4 12.4a2 2 0 002 1.6h8.4a2 2 0 002-1.6L21 8H6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="21" r="1.4" fill="currentColor"/><circle cx="18" cy="21" r="1.4" fill="currentColor"/></svg>
+  <span data-i18n="cartLabel">Panier</span>
+  <span class="fab-count mono" id="fabCount" hidden>0</span>
+</button>
+
+<a class="whatsapp-fab" id="whatsappFab" href="https://wa.me/33748142228" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#fff"><path d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.36.65 4.56 1.79 6.45L4 29l7.73-1.75a11.9 11.9 0 004.29.8h.01c6.62 0 12.02-5.4 12.02-12.03C28.05 8.4 22.65 3 16.02 3zm0 21.86a9.8 9.8 0 01-4.99-1.37l-.36-.21-4.42 1 1.02-4.3-.24-.37a9.8 9.8 0 01-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.1 1.03 6.96 2.89a9.78 9.78 0 012.89 6.96c0 5.44-4.42 9.86-9.86 9.86zm5.4-7.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.37-1.46-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.48-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.19 5.06 4.47.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/></svg>
+</a>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h3 class="offcanvas-title" id="drawerTitle">Votre panier</h3>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Fermer"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="drawer-scroll" id="drawerBody"></div>
+    <div class="drawer-foot" id="drawerFoot"></div>
+  </div>
+</div>
+
+<div class="toast-brand" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script>
+(function(){
+  "use strict";
+  var ORDER_EMAIL = 'bsdechauffage@gmail.com';
+  var WHATSAPP_NUMBER = '33748142228';
+  var FREE_DELIVERY_THRESHOLD = 20;
+  var LANGS = ['fr','en','de','nl','es','it'];
+  var LANG_META = {
+    fr:{flag:'🇫🇷',code:'FR',name:'Français'},
+    en:{flag:'🇬🇧',code:'EN',name:'English'},
+    de:{flag:'🇩🇪',code:'DE',name:'Deutsch'},
+    nl:{flag:'🇳🇱',code:'NL',name:'Nederlands'},
+    es:{flag:'🇪🇸',code:'ES',name:'Español'},
+    it:{flag:'🇮🇹',code:'IT',name:'Italiano'}
+  };
+
+  var I18N = {
+    fr:{
+      navBuches:"Bois de chauffage", navGranules:"Granulés", navLivraison:"Livraison", navContact:"Contact", cartLabel:"Panier",
+      heroEyebrow:"Livraison partout en Europe",
+      heroTitle:"Le bois qui tient sa promesse de chaleur.",
+      heroLede:"Bûches de chêne, frêne, hêtre et charme — très sèches, coupées et prêtes à flamber — et granulés premium livrés en palette complète, partout en Europe.",
+      heroCtaWood:"Voir le bois de chauffage", heroCtaPellets:"Voir les granulés",
+      statEssencesB:"4 essences", statEssencesS:"Chêne · frêne · hêtre · charme",
+      statCutB:"33 / 50 cm", statCutS:"Longueurs de coupe",
+      statFreeB:"≥ 20 stères", statFreeS:"Livraison gratuite",
+      trustDryB:"Bois très sec", trustDryS:"Prêt à brûler dès la livraison",
+      trustMixB:"Mélange de feuillus", trustMixS:"Chêne, frêne, hêtre, charme",
+      trustCutB:"Coupe 33 ou 50 cm", trustCutS:"Adapté à votre foyer ou poêle",
+      trustFreeB:"🚚 Livraison gratuite", trustFreeS:"Dès 20 stères, partout en Europe",
+      quickTitle:"Que cherchez-vous ?",
+      quickWoodText:"Bûches sèches en stères, livrées chez vous.",
+      quickPelletsText:"Palettes de granulés premium, trois qualités.",
+      quickDeliveryText:"Comment commander et nos zones en Europe.",
+      quickContactText:"Email, WhatsApp — on vous répond vite.",
+      ctaTitle:"Prêt pour l'hiver ?",
+      ctaText:"Composez votre commande de bois et de granulés en quelques clics, ou contactez-nous directement par WhatsApp.",
+      ctaBtnOrder:"Commander maintenant", ctaBtnWhatsapp:"Écrire sur WhatsApp",
+      buchesEyebrow:"Bois de chauffage",
+      buchesBannerTitle:"Mélange chêne, frêne, hêtre, charme",
+      buchesBannerText:"Coupé en longueurs de 33 cm et 50 cm, fendu et stocké au sec. Choisissez votre quantité en stères ci-dessous.",
+      buchesHeadTitle:"Choisissez votre quantité",
+      buchesHeadText:"Le stère est l'unité de mesure du bois de chauffage empilé. Plus la commande est grande, plus le prix au stère baisse.",
+      buchesFreeBanner:"🚚 Livraison gratuite partout en Europe dès 20 stères commandés",
+      buchesNoteDelivery:"Pour les commandes de moins de 20 stères, les frais de livraison sont calculés selon votre pays et votre secteur, et vous seront confirmés avant expédition.",
+      buchesBestBadge:"Le plus commandé", buchesFreeBadge:"🚚 Livraison gratuite",
+      addBtn:"Ajouter", addedBtn:"Ajouté ✓",
+      granulesHeadTitle:"Granulés de bois",
+      granulesHeadText:"Palette complète de 66 sacs de 15 kg (990 kg), livraison comprise. Trois qualités disponibles selon votre budget et votre appareil de chauffe.",
+      granuleSpec:"Palette de 66 × 15 kg (990 kg) · livraison comprise",
+      granuleQuote:"Prix sur demande", granuleAddBtn:"Ajouter", granuleQuoteBtn:"Demander le prix", granuleQuotedBtn:"Demande envoyée ✓", unitPallet:"palette",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Qualité premium", g_hd_desc:"Granulés certifiés EN plus A1, faible taux de cendres et haut rendement calorifique.",
+      g_eco_name:"ÉCO · Origine Allemande", g_eco_badge:"Bon rapport qualité/prix", g_eco_desc:"Granulés économiques d'origine allemande, un compromis efficace pour un usage quotidien.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"Disponible", g_fs_desc:"Granulés premium FireStixx, forte densité et très faible taux d'humidité.",
+      livHeadTitle:"Comment commander", livHeadText:"Trois étapes, sans compte à créer.",
+      how1Title:"Choisissez vos produits", how1Text:"Bûches, granulés, ou les deux — sélectionnez vos quantités dans le catalogue.",
+      how2Title:"Ajoutez au panier", how2Text:"Ajustez les quantités à tout moment, le total se recalcule automatiquement.",
+      how3Title:"Confirmez la livraison", how3Text:"Indiquez votre adresse et la date souhaitée : on s'occupe du reste.",
+      howPhotoCap:"Livraison directement chez vous, palette ou stères comptés.",
+      livZonesTitle:"Nos zones de livraison",
+      livZonesText:"Nous livrons dans toute l'Europe. Si votre pays n'apparaît pas ci-dessous, contactez-nous : nous trouvons presque toujours une solution.",
+      livFreeReminder:"🚚 Livraison gratuite dès 20 stères de bois de chauffage commandés, quelle que soit votre destination en Europe.",
+      contactTitle:"Contact", contactText:"Une question sur un produit, une livraison ou un pays précis ? Écrivez-nous, on répond vite.",
+      contactEmailLabel:"Email", contactEmailText:"Pour toute question, écrivez-nous directement.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Réponse rapide, idéal pour confirmer une commande.",
+      footerOrderLink:"Passer une commande",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Livraison gratuite dès 20 stères — partout en Europe",
+      cartTitle:"Votre panier", cartEmptyTitle:"Votre panier est vide.", cartEmptyText:"Ajoutez du bois ou des granulés depuis le catalogue.",
+      cartBrowseBtn:"Voir le catalogue", cartItemsLabel:"Articles", cartTotalLabel:"Total",
+      cartNoteQuote:"Certains articles sont sur devis — le prix final vous sera confirmé.",
+      cartNoteFree:"🚚 Livraison gratuite incluse.", cartNoteRemaining:"Encore {n} stère(s) pour la livraison gratuite.",
+      cartCheckoutBtn:"Commander →", cartRemove:"Retirer",
+      checkoutBack:"← Retour",
+      fPrenom:"Prénom", fNom:"Nom", fTelephone:"Téléphone", fEmail:"Email", fAdresse:"Adresse de livraison",
+      fCp:"Code postal", fVille:"Ville", fPays:"Pays", fDate:"Date souhaitée",
+      fMessage:"Instructions de livraison (optionnel)", fMessagePh:"Ex : portail au fond de la cour, prévenir avant 17h...",
+      requiredError:"Ce champ est requis.", checkoutTotalLabel:"Total à confirmer", checkoutSubmitBtn:"Envoyer ma commande",
+      confirmTitle:"Commande envoyée", confirmThanks:"Merci, {name} !",
+      confirmText:"Votre logiciel de messagerie va s'ouvrir pour envoyer la commande. Vous pouvez aussi la confirmer directement par WhatsApp.",
+      confirmOrderNo:"N° {num}", confirmRecapTitle:"Récapitulatif", confirmTotalLabel:"Total",
+      confirmBtnEmail:"Envoyer par email", confirmBtnWhatsapp:"Confirmer sur WhatsApp",
+      confirmBtnCopy:"Copier le récapitulatif", confirmBtnNew:"Nouvelle commande",
+      toastAdded:"{item} ajouté au panier", toastCopied:"Récapitulatif copié ✓", toastCopyFail:"Impossible de copier automatiquement",
+      mailSubject:"Commande {num} — Bois & Braises", mailOrderTitle:"Nouvelle commande {num}",
+      mailTotalLabel:"Total estimé : ", mailQuoteSuffix:" + article(s) sur devis", mailFreeSuffix:" (livraison gratuite)",
+      mailClient:"Client : ", mailPhone:"Téléphone : ", mailEmail:"Email : ", mailAddress:"Adresse : ", mailCountry:"Pays : ",
+      mailDate:"Date souhaitée : ", mailInstructions:"Instructions : ",
+      waGreeting:"Bonjour, je souhaite confirmer ma commande {num} :", waTotal:"Total : ", waDelivery:"Livraison : "
+    },
+    en:{
+      navBuches:"Firewood", navGranules:"Pellets", navLivraison:"Delivery", navContact:"Contact", cartLabel:"Cart",
+      heroEyebrow:"Delivered across Europe",
+      heroTitle:"Firewood that keeps its promise of warmth.",
+      heroLede:"Oak, ash, beech and hornbeam logs — very dry, cut and ready to burn — and premium wood pellets delivered by the full pallet, anywhere in Europe.",
+      heroCtaWood:"See firewood", heroCtaPellets:"See pellets",
+      statEssencesB:"4 species", statEssencesS:"Oak · ash · beech · hornbeam",
+      statCutB:"33 / 50 cm", statCutS:"Cut lengths",
+      statFreeB:"≥ 20 stères", statFreeS:"Free delivery",
+      trustDryB:"Very dry wood", trustDryS:"Ready to burn on arrival",
+      trustMixB:"Hardwood mix", trustMixS:"Oak, ash, beech, hornbeam",
+      trustCutB:"33 or 50 cm cut", trustCutS:"Fits any fireplace or stove",
+      trustFreeB:"🚚 Free delivery", trustFreeS:"From 20 stères, anywhere in Europe",
+      quickTitle:"What are you looking for?",
+      quickWoodText:"Dry logs sold by the stère, delivered to you.",
+      quickPelletsText:"Premium pellet pallets, three grades.",
+      quickDeliveryText:"How to order and our European zones.",
+      quickContactText:"Email, WhatsApp — we reply fast.",
+      ctaTitle:"Ready for winter?",
+      ctaText:"Build your order of wood and pellets in a few clicks, or reach us directly on WhatsApp.",
+      ctaBtnOrder:"Order now", ctaBtnWhatsapp:"Message on WhatsApp",
+      buchesEyebrow:"Firewood",
+      buchesBannerTitle:"Oak, ash, beech, hornbeam mix",
+      buchesBannerText:"Cut in 33 cm and 50 cm lengths, split and stored dry. Choose your quantity in stères below.",
+      buchesHeadTitle:"Choose your quantity",
+      buchesHeadText:"The stère is the standard unit for stacked firewood. The larger the order, the lower the price per stère.",
+      buchesFreeBanner:"🚚 Free delivery anywhere in Europe from 20 stères ordered",
+      buchesNoteDelivery:"For orders under 20 stères, delivery costs are calculated by country and area, and confirmed before dispatch.",
+      buchesBestBadge:"Most ordered", buchesFreeBadge:"🚚 Free delivery",
+      addBtn:"Add", addedBtn:"Added ✓",
+      granulesHeadTitle:"Wood pellets",
+      granulesHeadText:"Full pallet of 66 bags of 15 kg (990 kg), delivery included. Three grades available depending on your budget and appliance.",
+      granuleSpec:"Pallet of 66 × 15 kg (990 kg) · delivery included",
+      granuleQuote:"Price on request", granuleAddBtn:"Add", granuleQuoteBtn:"Request price", granuleQuotedBtn:"Request sent ✓", unitPallet:"pallet",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Premium quality", g_hd_desc:"EN plus A1 certified pellets, low ash content and high heating performance.",
+      g_eco_name:"ECO · German Origin", g_eco_badge:"Best value", g_eco_desc:"Economical German-origin pellets, an efficient choice for everyday use.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"In stock", g_fs_desc:"Premium FireStixx pellets, high density and very low moisture content.",
+      livHeadTitle:"How to order", livHeadText:"Three steps, no account needed.",
+      how1Title:"Choose your products", how1Text:"Firewood, pellets, or both — pick your quantities from the catalogue.",
+      how2Title:"Add to cart", how2Text:"Adjust quantities anytime, the total updates automatically.",
+      how3Title:"Confirm delivery", how3Text:"Give us your address and preferred date: we take care of the rest.",
+      howPhotoCap:"Delivered straight to your door, by pallet or counted stères.",
+      livZonesTitle:"Our delivery zones",
+      livZonesText:"We deliver across Europe. If your country isn't listed below, contact us — we can almost always find a solution.",
+      livFreeReminder:"🚚 Free delivery from 20 stères of firewood ordered, wherever you are in Europe.",
+      contactTitle:"Contact", contactText:"A question about a product, a delivery, or a specific country? Write to us, we reply fast.",
+      contactEmailLabel:"Email", contactEmailText:"For any question, write to us directly.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Fast reply, ideal to confirm an order.",
+      footerOrderLink:"Place an order",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Free delivery from 20 stères — anywhere in Europe",
+      cartTitle:"Your cart", cartEmptyTitle:"Your cart is empty.", cartEmptyText:"Add firewood or pellets from the catalogue.",
+      cartBrowseBtn:"Browse catalogue", cartItemsLabel:"Items", cartTotalLabel:"Total",
+      cartNoteQuote:"Some items are quoted on request — final price will be confirmed.",
+      cartNoteFree:"🚚 Free delivery included.", cartNoteRemaining:"{n} more stère(s) until free delivery.",
+      cartCheckoutBtn:"Checkout →", cartRemove:"Remove",
+      checkoutBack:"← Back",
+      fPrenom:"First name", fNom:"Last name", fTelephone:"Phone", fEmail:"Email", fAdresse:"Delivery address",
+      fCp:"Postal code", fVille:"City", fPays:"Country", fDate:"Preferred date",
+      fMessage:"Delivery instructions (optional)", fMessagePh:"E.g. gate at the back of the yard, call before 5pm...",
+      requiredError:"This field is required.", checkoutTotalLabel:"Total to confirm", checkoutSubmitBtn:"Send my order",
+      confirmTitle:"Order sent", confirmThanks:"Thank you, {name}!",
+      confirmText:"Your email app will open to send the order. You can also confirm directly on WhatsApp.",
+      confirmOrderNo:"No. {num}", confirmRecapTitle:"Summary", confirmTotalLabel:"Total",
+      confirmBtnEmail:"Send by email", confirmBtnWhatsapp:"Confirm on WhatsApp",
+      confirmBtnCopy:"Copy summary", confirmBtnNew:"New order",
+      toastAdded:"{item} added to cart", toastCopied:"Summary copied ✓", toastCopyFail:"Could not copy automatically",
+      mailSubject:"Order {num} — Bois & Braises", mailOrderTitle:"New order {num}",
+      mailTotalLabel:"Estimated total: ", mailQuoteSuffix:" + quoted item(s)", mailFreeSuffix:" (free delivery)",
+      mailClient:"Customer: ", mailPhone:"Phone: ", mailEmail:"Email: ", mailAddress:"Address: ", mailCountry:"Country: ",
+      mailDate:"Preferred date: ", mailInstructions:"Instructions: ",
+      waGreeting:"Hello, I'd like to confirm my order {num}:", waTotal:"Total: ", waDelivery:"Delivery: "
+    },
+    de:{
+      navBuches:"Brennholz", navGranules:"Pellets", navLivraison:"Lieferung", navContact:"Kontakt", cartLabel:"Warenkorb",
+      heroEyebrow:"Lieferung in ganz Europa",
+      heroTitle:"Holz, das sein Versprechen von Wärme hält.",
+      heroLede:"Scheite aus Eiche, Esche, Buche und Hainbuche — sehr trocken, geschnitten und sofort brennbereit — sowie Premium-Pellets, palettenweise geliefert, überall in Europa.",
+      heroCtaWood:"Brennholz ansehen", heroCtaPellets:"Pellets ansehen",
+      statEssencesB:"4 Holzarten", statEssencesS:"Eiche · Esche · Buche · Hainbuche",
+      statCutB:"33 / 50 cm", statCutS:"Schnittlängen",
+      statFreeB:"≥ 20 Ster", statFreeS:"Kostenlose Lieferung",
+      trustDryB:"Sehr trockenes Holz", trustDryS:"Sofort brennbereit bei Lieferung",
+      trustMixB:"Laubholzmischung", trustMixS:"Eiche, Esche, Buche, Hainbuche",
+      trustCutB:"33 oder 50 cm Schnitt", trustCutS:"Passend für Kamin oder Ofen",
+      trustFreeB:"🚚 Kostenlose Lieferung", trustFreeS:"Ab 20 Ster, überall in Europa",
+      quickTitle:"Was suchen Sie?",
+      quickWoodText:"Trockene Scheite pro Ster, bei Ihnen geliefert.",
+      quickPelletsText:"Premium-Pelletpaletten, drei Qualitäten.",
+      quickDeliveryText:"Bestellablauf und unsere Lieferzonen in Europa.",
+      quickContactText:"E-Mail, WhatsApp — wir antworten schnell.",
+      ctaTitle:"Bereit für den Winter?",
+      ctaText:"Stellen Sie Ihre Holz- und Pelletbestellung in wenigen Klicks zusammen, oder schreiben Sie uns direkt über WhatsApp.",
+      ctaBtnOrder:"Jetzt bestellen", ctaBtnWhatsapp:"Auf WhatsApp schreiben",
+      buchesEyebrow:"Brennholz",
+      buchesBannerTitle:"Mischung aus Eiche, Esche, Buche, Hainbuche",
+      buchesBannerText:"Geschnitten in 33 cm und 50 cm Längen, gespalten und trocken gelagert. Wählen Sie unten Ihre Menge in Ster.",
+      buchesHeadTitle:"Wählen Sie Ihre Menge",
+      buchesHeadText:"Der Ster ist die Maßeinheit für gestapeltes Brennholz. Je größer die Bestellung, desto niedriger der Preis pro Ster.",
+      buchesFreeBanner:"🚚 Kostenlose Lieferung in ganz Europa ab 20 bestellten Ster",
+      buchesNoteDelivery:"Bei Bestellungen unter 20 Ster werden die Lieferkosten je nach Land und Gebiet berechnet und vor dem Versand bestätigt.",
+      buchesBestBadge:"Meistbestellt", buchesFreeBadge:"🚚 Kostenlose Lieferung",
+      addBtn:"Hinzufügen", addedBtn:"Hinzugefügt ✓",
+      granulesHeadTitle:"Holzpellets",
+      granulesHeadText:"Komplette Palette mit 66 Säcken à 15 kg (990 kg), Lieferung inbegriffen. Drei Qualitäten je nach Budget und Heizgerät.",
+      granuleSpec:"Palette 66 × 15 kg (990 kg) · Lieferung inbegriffen",
+      granuleQuote:"Preis auf Anfrage", granuleAddBtn:"Hinzufügen", granuleQuoteBtn:"Preis anfragen", granuleQuotedBtn:"Anfrage gesendet ✓", unitPallet:"Palette",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Premiumqualität", g_hd_desc:"EN plus A1 zertifizierte Pellets mit niedrigem Aschegehalt und hoher Heizleistung.",
+      g_eco_name:"ÖKO · Deutsche Herkunft", g_eco_badge:"Gutes Preis-Leistungs-Verhältnis", g_eco_desc:"Wirtschaftliche Pellets deutscher Herkunft, ideal für den täglichen Gebrauch.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"Verfügbar", g_fs_desc:"Premium FireStixx-Pellets mit hoher Dichte und sehr geringem Feuchtigkeitsgehalt.",
+      livHeadTitle:"So bestellen Sie", livHeadText:"Drei Schritte, kein Konto nötig.",
+      how1Title:"Produkte wählen", how1Text:"Brennholz, Pellets oder beides — wählen Sie Ihre Mengen im Katalog.",
+      how2Title:"In den Warenkorb legen", how2Text:"Passen Sie Mengen jederzeit an, die Summe wird automatisch aktualisiert.",
+      how3Title:"Lieferung bestätigen", how3Text:"Geben Sie Adresse und Wunschtermin an: wir kümmern uns um den Rest.",
+      howPhotoCap:"Direkt zu Ihnen geliefert, palettenweise oder in gezählten Ster.",
+      livZonesTitle:"Unsere Liefergebiete",
+      livZonesText:"Wir liefern in ganz Europa. Steht Ihr Land nicht in der Liste, kontaktieren Sie uns — meist finden wir eine Lösung.",
+      livFreeReminder:"🚚 Kostenlose Lieferung ab 20 bestellten Ster Brennholz, egal wo in Europa Sie sich befinden.",
+      contactTitle:"Kontakt", contactText:"Eine Frage zu einem Produkt, einer Lieferung oder einem bestimmten Land? Schreiben Sie uns, wir antworten schnell.",
+      contactEmailLabel:"E-Mail", contactEmailText:"Für jede Frage schreiben Sie uns direkt.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Schnelle Antwort, ideal zur Bestellbestätigung.",
+      footerOrderLink:"Bestellung aufgeben",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Kostenlose Lieferung ab 20 Ster — überall in Europa",
+      cartTitle:"Ihr Warenkorb", cartEmptyTitle:"Ihr Warenkorb ist leer.", cartEmptyText:"Fügen Sie Brennholz oder Pellets aus dem Katalog hinzu.",
+      cartBrowseBtn:"Katalog ansehen", cartItemsLabel:"Artikel", cartTotalLabel:"Summe",
+      cartNoteQuote:"Einige Artikel sind auf Anfrage — der Endpreis wird bestätigt.",
+      cartNoteFree:"🚚 Kostenlose Lieferung inbegriffen.", cartNoteRemaining:"Noch {n} Ster bis zur kostenlosen Lieferung.",
+      cartCheckoutBtn:"Bestellen →", cartRemove:"Entfernen",
+      checkoutBack:"← Zurück",
+      fPrenom:"Vorname", fNom:"Nachname", fTelephone:"Telefon", fEmail:"E-Mail", fAdresse:"Lieferadresse",
+      fCp:"Postleitzahl", fVille:"Stadt", fPays:"Land", fDate:"Wunschtermin",
+      fMessage:"Lieferhinweise (optional)", fMessagePh:"Z. B. Tor hinten im Hof, vor 17 Uhr anrufen...",
+      requiredError:"Dieses Feld ist erforderlich.", checkoutTotalLabel:"Zu bestätigende Summe", checkoutSubmitBtn:"Bestellung senden",
+      confirmTitle:"Bestellung gesendet", confirmThanks:"Danke, {name}!",
+      confirmText:"Ihr E-Mail-Programm öffnet sich, um die Bestellung zu senden. Sie können auch direkt über WhatsApp bestätigen.",
+      confirmOrderNo:"Nr. {num}", confirmRecapTitle:"Zusammenfassung", confirmTotalLabel:"Summe",
+      confirmBtnEmail:"Per E-Mail senden", confirmBtnWhatsapp:"Auf WhatsApp bestätigen",
+      confirmBtnCopy:"Zusammenfassung kopieren", confirmBtnNew:"Neue Bestellung",
+      toastAdded:"{item} zum Warenkorb hinzugefügt", toastCopied:"Zusammenfassung kopiert ✓", toastCopyFail:"Automatisches Kopieren nicht möglich",
+      mailSubject:"Bestellung {num} — Bois & Braises", mailOrderTitle:"Neue Bestellung {num}",
+      mailTotalLabel:"Geschätzte Summe: ", mailQuoteSuffix:" + Artikel auf Anfrage", mailFreeSuffix:" (kostenlose Lieferung)",
+      mailClient:"Kunde: ", mailPhone:"Telefon: ", mailEmail:"E-Mail: ", mailAddress:"Adresse: ", mailCountry:"Land: ",
+      mailDate:"Wunschtermin: ", mailInstructions:"Hinweise: ",
+      waGreeting:"Hallo, ich möchte meine Bestellung {num} bestätigen:", waTotal:"Summe: ", waDelivery:"Lieferung: "
+    },
+    nl:{
+      navBuches:"Brandhout", navGranules:"Pellets", navLivraison:"Levering", navContact:"Contact", cartLabel:"Winkelwagen",
+      heroEyebrow:"Levering in heel Europa",
+      heroTitle:"Hout dat zijn belofte van warmte waarmaakt.",
+      heroLede:"Blokken eik, es, beuk en haagbeuk — zeer droog, gekloofd en klaar om te branden — en premium pellets geleverd per volledige pallet, overal in Europa.",
+      heroCtaWood:"Bekijk brandhout", heroCtaPellets:"Bekijk pellets",
+      statEssencesB:"4 houtsoorten", statEssencesS:"Eik · es · beuk · haagbeuk",
+      statCutB:"33 / 50 cm", statCutS:"Zaaglengtes",
+      statFreeB:"≥ 20 stères", statFreeS:"Gratis levering",
+      trustDryB:"Zeer droog hout", trustDryS:"Klaar om te branden bij levering",
+      trustMixB:"Mix van loofhout", trustMixS:"Eik, es, beuk, haagbeuk",
+      trustCutB:"33 of 50 cm gezaagd", trustCutS:"Past in elke haard of kachel",
+      trustFreeB:"🚚 Gratis levering", trustFreeS:"Vanaf 20 stères, overal in Europa",
+      quickTitle:"Wat zoekt u?",
+      quickWoodText:"Droge blokken per stère, bij u geleverd.",
+      quickPelletsText:"Premium pelletpallets, drie kwaliteiten.",
+      quickDeliveryText:"Hoe te bestellen en onze zones in Europa.",
+      quickContactText:"E-mail, WhatsApp — we reageren snel.",
+      ctaTitle:"Klaar voor de winter?",
+      ctaText:"Stel uw bestelling hout en pellets samen in enkele klikken, of neem direct contact op via WhatsApp.",
+      ctaBtnOrder:"Nu bestellen", ctaBtnWhatsapp:"Bericht via WhatsApp",
+      buchesEyebrow:"Brandhout",
+      buchesBannerTitle:"Mix van eik, es, beuk, haagbeuk",
+      buchesBannerText:"Gezaagd op 33 cm en 50 cm, gekloofd en droog opgeslagen. Kies hieronder uw hoeveelheid in stères.",
+      buchesHeadTitle:"Kies uw hoeveelheid",
+      buchesHeadText:"De stère is de standaardeenheid voor gestapeld brandhout. Hoe groter de bestelling, hoe lager de prijs per stère.",
+      buchesFreeBanner:"🚚 Gratis levering in heel Europa vanaf 20 bestelde stères",
+      buchesNoteDelivery:"Voor bestellingen onder 20 stères worden de leveringskosten berekend op basis van land en regio, en bevestigd vóór verzending.",
+      buchesBestBadge:"Meest besteld", buchesFreeBadge:"🚚 Gratis levering",
+      addBtn:"Toevoegen", addedBtn:"Toegevoegd ✓",
+      granulesHeadTitle:"Houtpellets",
+      granulesHeadText:"Volledige pallet van 66 zakken van 15 kg (990 kg), levering inbegrepen. Drie kwaliteiten naargelang uw budget en toestel.",
+      granuleSpec:"Pallet van 66 × 15 kg (990 kg) · levering inbegrepen",
+      granuleQuote:"Prijs op aanvraag", granuleAddBtn:"Toevoegen", granuleQuoteBtn:"Prijs aanvragen", granuleQuotedBtn:"Aanvraag verzonden ✓", unitPallet:"pallet",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Premiumkwaliteit", g_hd_desc:"EN plus A1-gecertificeerde pellets met laag asgehalte en hoog rendement.",
+      g_eco_name:"ECO · Duitse oorsprong", g_eco_badge:"Uitstekende prijs-kwaliteit", g_eco_desc:"Voordelige pellets van Duitse oorsprong, ideaal voor dagelijks gebruik.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"Beschikbaar", g_fs_desc:"Premium FireStixx-pellets met hoge dichtheid en zeer laag vochtgehalte.",
+      livHeadTitle:"Hoe te bestellen", livHeadText:"Drie stappen, geen account nodig.",
+      how1Title:"Kies uw producten", how1Text:"Brandhout, pellets, of beide — kies uw hoeveelheden in de catalogus.",
+      how2Title:"Voeg toe aan winkelwagen", how2Text:"Pas hoeveelheden op elk moment aan, het totaal wordt automatisch bijgewerkt.",
+      how3Title:"Bevestig de levering", how3Text:"Geef uw adres en gewenste datum op: wij regelen de rest.",
+      howPhotoCap:"Rechtstreeks bij u geleverd, per pallet of geteld in stères.",
+      livZonesTitle:"Onze leveringszones",
+      livZonesText:"Wij leveren in heel Europa. Staat uw land er niet bij? Neem contact op — meestal vinden we een oplossing.",
+      livFreeReminder:"🚚 Gratis levering vanaf 20 bestelde stères brandhout, waar u zich ook bevindt in Europa.",
+      contactTitle:"Contact", contactText:"Een vraag over een product, een levering of een specifiek land? Schrijf ons, we reageren snel.",
+      contactEmailLabel:"E-mail", contactEmailText:"Voor elke vraag, schrijf ons rechtstreeks.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Snel antwoord, ideaal om een bestelling te bevestigen.",
+      footerOrderLink:"Bestelling plaatsen",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Gratis levering vanaf 20 stères — overal in Europa",
+      cartTitle:"Uw winkelwagen", cartEmptyTitle:"Uw winkelwagen is leeg.", cartEmptyText:"Voeg brandhout of pellets toe vanuit de catalogus.",
+      cartBrowseBtn:"Bekijk catalogus", cartItemsLabel:"Artikelen", cartTotalLabel:"Totaal",
+      cartNoteQuote:"Sommige artikelen zijn op aanvraag — de eindprijs wordt bevestigd.",
+      cartNoteFree:"🚚 Gratis levering inbegrepen.", cartNoteRemaining:"Nog {n} stère(s) voor gratis levering.",
+      cartCheckoutBtn:"Bestellen →", cartRemove:"Verwijderen",
+      checkoutBack:"← Terug",
+      fPrenom:"Voornaam", fNom:"Achternaam", fTelephone:"Telefoon", fEmail:"E-mail", fAdresse:"Leveringsadres",
+      fCp:"Postcode", fVille:"Stad", fPays:"Land", fDate:"Gewenste datum",
+      fMessage:"Leveringsinstructies (optioneel)", fMessagePh:"Bv. poort achteraan de tuin, bel voor 17u...",
+      requiredError:"Dit veld is verplicht.", checkoutTotalLabel:"Te bevestigen totaal", checkoutSubmitBtn:"Bestelling verzenden",
+      confirmTitle:"Bestelling verzonden", confirmThanks:"Bedankt, {name}!",
+      confirmText:"Uw e-mailprogramma opent om de bestelling te verzenden. U kunt ook direct bevestigen via WhatsApp.",
+      confirmOrderNo:"Nr. {num}", confirmRecapTitle:"Overzicht", confirmTotalLabel:"Totaal",
+      confirmBtnEmail:"Verzenden per e-mail", confirmBtnWhatsapp:"Bevestigen via WhatsApp",
+      confirmBtnCopy:"Overzicht kopiëren", confirmBtnNew:"Nieuwe bestelling",
+      toastAdded:"{item} toegevoegd aan winkelwagen", toastCopied:"Overzicht gekopieerd ✓", toastCopyFail:"Automatisch kopiëren niet gelukt",
+      mailSubject:"Bestelling {num} — Bois & Braises", mailOrderTitle:"Nieuwe bestelling {num}",
+      mailTotalLabel:"Geschat totaal: ", mailQuoteSuffix:" + artikel(en) op aanvraag", mailFreeSuffix:" (gratis levering)",
+      mailClient:"Klant: ", mailPhone:"Telefoon: ", mailEmail:"E-mail: ", mailAddress:"Adres: ", mailCountry:"Land: ",
+      mailDate:"Gewenste datum: ", mailInstructions:"Instructies: ",
+      waGreeting:"Hallo, ik wil graag mijn bestelling {num} bevestigen:", waTotal:"Totaal: ", waDelivery:"Levering: "
+    },
+    es:{
+      navBuches:"Leña", navGranules:"Pellets", navLivraison:"Envío", navContact:"Contacto", cartLabel:"Carrito",
+      heroEyebrow:"Envíos a toda Europa",
+      heroTitle:"La leña que cumple su promesa de calor.",
+      heroLede:"Troncos de roble, fresno, haya y carpe — muy secos, cortados y listos para arder — y pellets premium entregados por palet completo, en toda Europa.",
+      heroCtaWood:"Ver leña", heroCtaPellets:"Ver pellets",
+      statEssencesB:"4 especies", statEssencesS:"Roble · fresno · haya · carpe",
+      statCutB:"33 / 50 cm", statCutS:"Longitudes de corte",
+      statFreeB:"≥ 20 estéreos", statFreeS:"Envío gratuito",
+      trustDryB:"Leña muy seca", trustDryS:"Lista para arder al llegar",
+      trustMixB:"Mezcla de frondosas", trustMixS:"Roble, fresno, haya, carpe",
+      trustCutB:"Corte de 33 o 50 cm", trustCutS:"Apta para cualquier chimenea o estufa",
+      trustFreeB:"🚚 Envío gratuito", trustFreeS:"Desde 20 estéreos, en toda Europa",
+      quickTitle:"¿Qué está buscando?",
+      quickWoodText:"Troncos secos por estéreo, entregados en su casa.",
+      quickPelletsText:"Palets de pellets premium, tres calidades.",
+      quickDeliveryText:"Cómo pedir y nuestras zonas en Europa.",
+      quickContactText:"Email, WhatsApp — respondemos rápido.",
+      ctaTitle:"¿Listo para el invierno?",
+      ctaText:"Prepare su pedido de leña y pellets en unos clics, o escríbanos directamente por WhatsApp.",
+      ctaBtnOrder:"Pedir ahora", ctaBtnWhatsapp:"Escribir por WhatsApp",
+      buchesEyebrow:"Leña",
+      buchesBannerTitle:"Mezcla de roble, fresno, haya y carpe",
+      buchesBannerText:"Cortada en longitudes de 33 cm y 50 cm, partida y almacenada en seco. Elija su cantidad en estéreos a continuación.",
+      buchesHeadTitle:"Elija su cantidad",
+      buchesHeadText:"El estéreo es la unidad de medida de la leña apilada. Cuanto mayor sea el pedido, menor el precio por estéreo.",
+      buchesFreeBanner:"🚚 Envío gratuito a toda Europa desde 20 estéreos pedidos",
+      buchesNoteDelivery:"Para pedidos de menos de 20 estéreos, los gastos de envío se calculan según su país y zona, y se confirmarán antes del envío.",
+      buchesBestBadge:"Más pedido", buchesFreeBadge:"🚚 Envío gratuito",
+      addBtn:"Añadir", addedBtn:"Añadido ✓",
+      granulesHeadTitle:"Pellets de madera",
+      granulesHeadText:"Palet completo de 66 sacos de 15 kg (990 kg), envío incluido. Tres calidades según su presupuesto y su equipo.",
+      granuleSpec:"Palet de 66 × 15 kg (990 kg) · envío incluido",
+      granuleQuote:"Precio a consultar", granuleAddBtn:"Añadir", granuleQuoteBtn:"Solicitar precio", granuleQuotedBtn:"Solicitud enviada ✓", unitPallet:"palet",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Calidad premium", g_hd_desc:"Pellets certificados EN plus A1, bajo contenido en cenizas y alto rendimiento calorífico.",
+      g_eco_name:"ECO · Origen alemán", g_eco_badge:"Mejor relación calidad-precio", g_eco_desc:"Pellets económicos de origen alemán, ideales para el uso diario.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"Disponible", g_fs_desc:"Pellets premium FireStixx, alta densidad y muy baja humedad.",
+      livHeadTitle:"Cómo pedir", livHeadText:"Tres pasos, sin necesidad de cuenta.",
+      how1Title:"Elija sus productos", how1Text:"Leña, pellets, o ambos — seleccione sus cantidades en el catálogo.",
+      how2Title:"Añada al carrito", how2Text:"Ajuste las cantidades en cualquier momento, el total se recalcula automáticamente.",
+      how3Title:"Confirme el envío", how3Text:"Indique su dirección y la fecha deseada: nosotros nos encargamos del resto.",
+      howPhotoCap:"Entregado directamente en su casa, por palet o estéreos contados.",
+      livZonesTitle:"Nuestras zonas de envío",
+      livZonesText:"Enviamos a toda Europa. Si su país no aparece a continuación, contáctenos: casi siempre encontramos una solución.",
+      livFreeReminder:"🚚 Envío gratuito desde 20 estéreos de leña pedidos, esté donde esté en Europa.",
+      contactTitle:"Contacto", contactText:"¿Una pregunta sobre un producto, un envío o un país en concreto? Escríbanos, respondemos rápido.",
+      contactEmailLabel:"Email", contactEmailText:"Para cualquier pregunta, escríbanos directamente.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Respuesta rápida, ideal para confirmar un pedido.",
+      footerOrderLink:"Hacer un pedido",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Envío gratuito desde 20 estéreos — en toda Europa",
+      cartTitle:"Su carrito", cartEmptyTitle:"Su carrito está vacío.", cartEmptyText:"Añada leña o pellets desde el catálogo.",
+      cartBrowseBtn:"Ver catálogo", cartItemsLabel:"Artículos", cartTotalLabel:"Total",
+      cartNoteQuote:"Algunos artículos están a consultar — el precio final se confirmará.",
+      cartNoteFree:"🚚 Envío gratuito incluido.", cartNoteRemaining:"Faltan {n} estéreo(s) para el envío gratuito.",
+      cartCheckoutBtn:"Pedir →", cartRemove:"Quitar",
+      checkoutBack:"← Volver",
+      fPrenom:"Nombre", fNom:"Apellido", fTelephone:"Teléfono", fEmail:"Email", fAdresse:"Dirección de envío",
+      fCp:"Código postal", fVille:"Ciudad", fPays:"País", fDate:"Fecha deseada",
+      fMessage:"Instrucciones de entrega (opcional)", fMessagePh:"Ej.: portón al fondo del patio, avisar antes de las 17h...",
+      requiredError:"Este campo es obligatorio.", checkoutTotalLabel:"Total a confirmar", checkoutSubmitBtn:"Enviar mi pedido",
+      confirmTitle:"Pedido enviado", confirmThanks:"¡Gracias, {name}!",
+      confirmText:"Su programa de correo se abrirá para enviar el pedido. También puede confirmarlo directamente por WhatsApp.",
+      confirmOrderNo:"N.º {num}", confirmRecapTitle:"Resumen", confirmTotalLabel:"Total",
+      confirmBtnEmail:"Enviar por email", confirmBtnWhatsapp:"Confirmar por WhatsApp",
+      confirmBtnCopy:"Copiar resumen", confirmBtnNew:"Nuevo pedido",
+      toastAdded:"{item} añadido al carrito", toastCopied:"Resumen copiado ✓", toastCopyFail:"No se pudo copiar automáticamente",
+      mailSubject:"Pedido {num} — Bois & Braises", mailOrderTitle:"Nuevo pedido {num}",
+      mailTotalLabel:"Total estimado: ", mailQuoteSuffix:" + artículo(s) a consultar", mailFreeSuffix:" (envío gratuito)",
+      mailClient:"Cliente: ", mailPhone:"Teléfono: ", mailEmail:"Email: ", mailAddress:"Dirección: ", mailCountry:"País: ",
+      mailDate:"Fecha deseada: ", mailInstructions:"Instrucciones: ",
+      waGreeting:"Hola, quiero confirmar mi pedido {num}:", waTotal:"Total: ", waDelivery:"Envío: "
+    },
+    it:{
+      navBuches:"Legna da ardere", navGranules:"Pellet", navLivraison:"Consegna", navContact:"Contatti", cartLabel:"Carrello",
+      heroEyebrow:"Consegna in tutta Europa",
+      heroTitle:"La legna che mantiene la sua promessa di calore.",
+      heroLede:"Ciocchi di quercia, frassino, faggio e carpino — molto secchi, tagliati e pronti da ardere — e pellet premium consegnati a pallet completo, in tutta Europa.",
+      heroCtaWood:"Vedi la legna", heroCtaPellets:"Vedi i pellet",
+      statEssencesB:"4 essenze", statEssencesS:"Quercia · frassino · faggio · carpino",
+      statCutB:"33 / 50 cm", statCutS:"Lunghezze di taglio",
+      statFreeB:"≥ 20 steri", statFreeS:"Consegna gratuita",
+      trustDryB:"Legna molto secca", trustDryS:"Pronta da ardere alla consegna",
+      trustMixB:"Misto di latifoglie", trustMixS:"Quercia, frassino, faggio, carpino",
+      trustCutB:"Taglio 33 o 50 cm", trustCutS:"Adatta a ogni caminetto o stufa",
+      trustFreeB:"🚚 Consegna gratuita", trustFreeS:"Da 20 steri, in tutta Europa",
+      quickTitle:"Cosa stai cercando?",
+      quickWoodText:"Ciocchi secchi a steri, consegnati a casa tua.",
+      quickPelletsText:"Pallet di pellet premium, tre qualità.",
+      quickDeliveryText:"Come ordinare e le nostre zone in Europa.",
+      quickContactText:"Email, WhatsApp — rispondiamo in fretta.",
+      ctaTitle:"Pronto per l'inverno?",
+      ctaText:"Componi il tuo ordine di legna e pellet in pochi clic, oppure scrivici direttamente su WhatsApp.",
+      ctaBtnOrder:"Ordina ora", ctaBtnWhatsapp:"Scrivi su WhatsApp",
+      buchesEyebrow:"Legna da ardere",
+      buchesBannerTitle:"Misto di quercia, frassino, faggio, carpino",
+      buchesBannerText:"Tagliata in lunghezze di 33 cm e 50 cm, spaccata e conservata all'asciutto. Scegli la tua quantità in steri qui sotto.",
+      buchesHeadTitle:"Scegli la tua quantità",
+      buchesHeadText:"Lo stero è l'unità di misura della legna accatastata. Più grande è l'ordine, più basso è il prezzo per stero.",
+      buchesFreeBanner:"🚚 Consegna gratuita in tutta Europa da 20 steri ordinati",
+      buchesNoteDelivery:"Per ordini inferiori a 20 steri, i costi di consegna sono calcolati in base al paese e alla zona, e confermati prima della spedizione.",
+      buchesBestBadge:"Il più ordinato", buchesFreeBadge:"🚚 Consegna gratuita",
+      addBtn:"Aggiungi", addedBtn:"Aggiunto ✓",
+      granulesHeadTitle:"Pellet di legno",
+      granulesHeadText:"Pallet completo di 66 sacchi da 15 kg (990 kg), consegna inclusa. Tre qualità disponibili in base al budget e all'apparecchio.",
+      granuleSpec:"Pallet da 66 × 15 kg (990 kg) · consegna inclusa",
+      granuleQuote:"Prezzo su richiesta", granuleAddBtn:"Aggiungi", granuleQuoteBtn:"Richiedi il prezzo", granuleQuotedBtn:"Richiesta inviata ✓", unitPallet:"pallet",
+      g_hd_name:"HD+ · ENplus A1", g_hd_badge:"Qualità premium", g_hd_desc:"Pellet certificato EN plus A1, basso contenuto di ceneri e alta resa termica.",
+      g_eco_name:"ECO · Origine tedesca", g_eco_badge:"Miglior rapporto qualità-prezzo", g_eco_desc:"Pellet economico di origine tedesca, ideale per l'uso quotidiano.",
+      g_fs_name:"FireStixx Premium", g_fs_badge:"Disponibile", g_fs_desc:"Pellet premium FireStixx, alta densità e umidità molto bassa.",
+      livHeadTitle:"Come ordinare", livHeadText:"Tre passaggi, nessun account necessario.",
+      how1Title:"Scegli i prodotti", how1Text:"Legna, pellet, o entrambi — seleziona le quantità nel catalogo.",
+      how2Title:"Aggiungi al carrello", how2Text:"Modifica le quantità in qualsiasi momento, il totale si aggiorna automaticamente.",
+      how3Title:"Conferma la consegna", how3Text:"Indica il tuo indirizzo e la data desiderata: pensiamo a tutto il resto.",
+      howPhotoCap:"Consegnato direttamente a casa tua, a pallet o a steri contati.",
+      livZonesTitle:"Le nostre zone di consegna",
+      livZonesText:"Consegniamo in tutta Europa. Se il tuo paese non è elencato qui sotto, contattaci: troviamo quasi sempre una soluzione.",
+      livFreeReminder:"🚚 Consegna gratuita da 20 steri di legna ordinati, ovunque tu sia in Europa.",
+      contactTitle:"Contatti", contactText:"Una domanda su un prodotto, una consegna o un paese specifico? Scrivici, rispondiamo in fretta.",
+      contactEmailLabel:"Email", contactEmailText:"Per qualsiasi domanda, scrivici direttamente.",
+      contactWhatsappLabel:"WhatsApp", contactWhatsappText:"Risposta rapida, ideale per confermare un ordine.",
+      footerOrderLink:"Effettua un ordine",
+      footerBottomCopy:"© Bois & Braises", footerBottomDelivery:"Consegna gratuita da 20 steri — in tutta Europa",
+      cartTitle:"Il tuo carrello", cartEmptyTitle:"Il tuo carrello è vuoto.", cartEmptyText:"Aggiungi legna o pellet dal catalogo.",
+      cartBrowseBtn:"Vedi il catalogo", cartItemsLabel:"Articoli", cartTotalLabel:"Totale",
+      cartNoteQuote:"Alcuni articoli sono su richiesta — il prezzo finale sarà confermato.",
+      cartNoteFree:"🚚 Consegna gratuita inclusa.", cartNoteRemaining:"Ancora {n} stero/i per la consegna gratuita.",
+      cartCheckoutBtn:"Ordina →", cartRemove:"Rimuovi",
+      checkoutBack:"← Indietro",
+      fPrenom:"Nome", fNom:"Cognome", fTelephone:"Telefono", fEmail:"Email", fAdresse:"Indirizzo di consegna",
+      fCp:"CAP", fVille:"Città", fPays:"Paese", fDate:"Data desiderata",
+      fMessage:"Istruzioni di consegna (facoltativo)", fMessagePh:"Es.: cancello in fondo al cortile, chiamare prima delle 17...",
+      requiredError:"Questo campo è obbligatorio.", checkoutTotalLabel:"Totale da confermare", checkoutSubmitBtn:"Invia il mio ordine",
+      confirmTitle:"Ordine inviato", confirmThanks:"Grazie, {name}!",
+      confirmText:"Il tuo programma di posta si aprirà per inviare l'ordine. Puoi anche confermare direttamente su WhatsApp.",
+      confirmOrderNo:"N. {num}", confirmRecapTitle:"Riepilogo", confirmTotalLabel:"Totale",
+      confirmBtnEmail:"Invia via email", confirmBtnWhatsapp:"Conferma su WhatsApp",
+      confirmBtnCopy:"Copia il riepilogo", confirmBtnNew:"Nuovo ordine",
+      toastAdded:"{item} aggiunto al carrello", toastCopied:"Riepilogo copiato ✓", toastCopyFail:"Impossibile copiare automaticamente",
+      mailSubject:"Ordine {num} — Bois & Braises", mailOrderTitle:"Nuovo ordine {num}",
+      mailTotalLabel:"Totale stimato: ", mailQuoteSuffix:" + articolo/i su richiesta", mailFreeSuffix:" (consegna gratuita)",
+      mailClient:"Cliente: ", mailPhone:"Telefono: ", mailEmail:"Email: ", mailAddress:"Indirizzo: ", mailCountry:"Paese: ",
+      mailDate:"Data desiderata: ", mailInstructions:"Istruzioni: ",
+      waGreeting:"Ciao, vorrei confermare il mio ordine {num}:", waTotal:"Totale: ", waDelivery:"Consegna: "
+    }
+  };
+  var BUCHES = [
+    {id:'b1', stere:1, price:40},
+    {id:'b2', stere:2, price:70},
+    {id:'b3', stere:3, price:120},
+    {id:'b5', stere:5, price:200, best:true},
+    {id:'b10', stere:10, price:360},
+    {id:'b20', stere:20, price:700},
+    {id:'b30', stere:30, price:1000},
+    {id:'b40', stere:40, price:1250},
+    {id:'b60', stere:60, price:1600}
+  ];
+  var GRANULES = [
+    {id:'g-hd', key:'g_hd', price:290, img:'images/granules/totalenergies-sac.jpg'},
+    {id:'g-eco', key:'g_eco', price:250, img:'images/granules/austropellet-sacs.jpg'},
+    {id:'g-fs', key:'g_fs', price:null, img:'images/granules/firestixx-palette.jpg'}
+  ];
+
+  /* ---------------- LANGUAGE STATE ---------------- */
+  var currentLang = detectLang();
+  function detectLang(){
+    try{
+      var saved = localStorage.getItem('bb_lang');
+      if(saved && LANGS.indexOf(saved) !== -1) return saved;
+    }catch(e){}
+    var nav = ((navigator.language || navigator.userLanguage || 'fr') + '').toLowerCase().slice(0,2);
+    return LANGS.indexOf(nav) !== -1 ? nav : 'fr';
+  }
+  function t(key, vars){
+    var dict = I18N[currentLang] || I18N.fr;
+    var str = dict[key] !== undefined ? dict[key] : (I18N.fr[key] !== undefined ? I18N.fr[key] : key);
+    if(vars){
+      Object.keys(vars).forEach(function(k){ str = str.split('{' + k + '}').join(vars[k]); });
+    }
+    return str;
+  }
+
+  /* ---------------- CART STATE ---------------- */
+  var cart = [];
+  try{
+    var saved = JSON.parse(localStorage.getItem('bb_cart_v3') || '[]');
+    if(Array.isArray(saved)) cart = saved;
+  }catch(e){ cart = []; }
+  var view = 'cart';
+  var lastOrder = null;
+  var offcanvasEl = document.getElementById('cartOffcanvas');
+  var offcanvasInstance = null;
+  function getOffcanvas(){
+    if(!offcanvasInstance) offcanvasInstance = new bootstrap.Offcanvas(offcanvasEl);
+    return offcanvasInstance;
+  }
+
+  function saveCart(){ try{ localStorage.setItem('bb_cart_v3', JSON.stringify(cart)); }catch(e){} }
+  function fmt(n){ return n.toLocaleString('fr-FR', {minimumFractionDigits: n % 1 !== 0 ? 2 : 0, maximumFractionDigits:2}) + ' €'; }
+  function findLine(id){ for(var i=0;i<cart.length;i++){ if(cart[i].id === id) return cart[i]; } return null; }
+
+  function addToCart(item){
+    var existing = findLine(item.id);
+    if(existing){ existing.qty += item.qty; } else { cart.push(item); }
+    saveCart(); renderCounts();
+    showToast(t('toastAdded', {item:item.label}));
+  }
+  function removeLine(id){ cart = cart.filter(function(l){ return l.id !== id; }); saveCart(); renderCounts(); renderDrawer(); }
+  function setLineQty(id, qty){
+    var l = findLine(id); if(!l) return;
+    if(qty <= 0){ removeLine(id); return; }
+    l.qty = qty; saveCart(); renderCounts(); renderDrawer();
+  }
+  function cartTotal(){
+    return cart.filter(function(l){ return typeof l.unitPrice === 'number'; })
+      .reduce(function(sum,l){ return sum + l.unitPrice * l.qty; }, 0);
+  }
+  function cartCount(){ return cart.reduce(function(sum,l){ return sum + l.qty; }, 0); }
+  function hasQuoteItems(){ return cart.some(function(l){ return typeof l.unitPrice !== 'number'; }); }
+  function cartStereTotal(){
+    return cart.filter(function(l){ return l.kind === 'buche'; }).reduce(function(sum,l){ return sum + l.stere*l.qty; }, 0);
+  }
+  /* ---------------- STATIC TRANSLATIONS ---------------- */
+  function applyStaticTranslations(){
+    document.documentElement.setAttribute('lang', currentLang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      el.textContent = t(el.getAttribute('data-i18n'));
+    });
+    var toggle = document.getElementById('langToggle');
+    var meta = LANG_META[currentLang];
+    toggle.textContent = meta.flag + ' ' + meta.code;
+    document.querySelectorAll('#langMenu .dropdown-item').forEach(function(item){
+      item.classList.toggle('active', item.getAttribute('data-lang') === currentLang);
+    });
+  }
+
+  function buildLangMenu(){
+    var menu = document.getElementById('langMenu');
+    menu.innerHTML = LANGS.map(function(code){
+      var m = LANG_META[code];
+      return '<li><button class="dropdown-item" type="button" data-lang="' + code + '">' + m.flag + ' ' + m.name + '</button></li>';
+    }).join('');
+    menu.querySelectorAll('[data-lang]').forEach(function(btn){
+      btn.addEventListener('click', function(){ setLanguage(btn.getAttribute('data-lang')); });
+    });
+  }
+
+  function setLanguage(lang){
+    if(LANGS.indexOf(lang) === -1) return;
+    currentLang = lang;
+    try{ localStorage.setItem('bb_lang', lang); }catch(e){}
+    applyStaticTranslations();
+    renderBucheGrid();
+    renderGranuleGrid();
+    renderCounts();
+    renderDrawer();
+  }
+
+  /* ---------------- ROUTER (multi-page) ---------------- */
+  var PAGES = ['accueil','buches','granules','livraison','contact'];
+  function currentPageFromHash(){
+    var h = (location.hash || '').replace('#','');
+    return PAGES.indexOf(h) !== -1 ? h : 'accueil';
+  }
+  function showPage(pageId){
+    PAGES.forEach(function(p){
+      var el = document.getElementById('page-' + p);
+      if(el) el.classList.toggle('active', p === pageId);
+    });
+    document.querySelectorAll('[data-nav-link]').forEach(function(a){
+      var active = a.getAttribute('data-nav-link') === pageId;
+      a.classList.toggle('active', active);
+      if(active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
+    });
+    window.scrollTo({top:0, behavior:'auto'});
+    var collapse = document.getElementById('mainNavCollapse');
+    if(collapse && collapse.classList.contains('show')){
+      var bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse);
+      bsCollapse.hide();
+    }
+  }
+  function route(){ showPage(currentPageFromHash()); }
+  window.addEventListener('hashchange', route);
+  /* ---------------- BUCHE GRID ---------------- */
+  var bucheGrid = document.getElementById('bucheGrid');
+  var bucheQty = {};
+  BUCHES.forEach(function(p){ bucheQty[p.id] = 1; });
+
+  function pluralStere(n){ return n > 1 ? 'stères' : 'stère'; }
+
+  function renderBucheGrid(){
+    bucheGrid.innerHTML = BUCHES.map(function(p){
+      var rate = (p.price / p.stere).toFixed(2).replace('.', ',');
+      var freeDelivery = p.stere >= FREE_DELIVERY_THRESHOLD;
+      return (
+        '<div class="col-12 col-sm-6 col-lg-4">' +
+        '<div class="pack-card' + (p.best ? ' best' : '') + '" ' + (p.best ? 'data-best-label="' + t('buchesBestBadge') + '"' : '') + '>' +
+          '<div class="pack-top">' +
+            '<span class="pack-size">' + p.stere + '<span class="unit">' + pluralStere(p.stere) + '</span></span>' +
+            '<span class="pack-price mono">' + fmt(p.price) + '</span>' +
+          '</div>' +
+          '<span class="pack-rate">≈ ' + rate + ' €/stère</span>' +
+          (freeDelivery ? '<span class="free-badge">' + t('buchesFreeBadge') + '</span>' : '') +
+          '<div class="pack-actions">' +
+            '<div class="stepper" data-buche="' + p.id + '">' +
+              '<button type="button" data-act="dec" aria-label="-">−</button>' +
+              '<span class="qty mono" data-qty>' + bucheQty[p.id] + '</span>' +
+              '<button type="button" data-act="inc" aria-label="+">+</button>' +
+            '</div>' +
+            '<button type="button" class="add-btn" data-add-buche="' + p.id + '">' + t('addBtn') + '</button>' +
+          '</div>' +
+        '</div></div>'
+      );
+    }).join('');
+  }
+  renderBucheGrid();
+
+  bucheGrid.addEventListener('click', function(e){
+    var stepBtn = e.target.closest('[data-act]');
+    if(stepBtn){
+      var wrap = stepBtn.closest('[data-buche]');
+      var id = wrap.getAttribute('data-buche');
+      var d = stepBtn.getAttribute('data-act') === 'inc' ? 1 : -1;
+      bucheQty[id] = Math.max(1, (bucheQty[id]||1) + d);
+      wrap.querySelector('[data-qty]').textContent = bucheQty[id];
+      return;
+    }
+    var addBtn = e.target.closest('[data-add-buche]');
+    if(addBtn){
+      var pid = addBtn.getAttribute('data-add-buche');
+      var product = BUCHES.filter(function(p){ return p.id === pid; })[0];
+      var qty = bucheQty[pid] || 1;
+      addToCart({
+        id: 'buche-' + product.stere,
+        kind: 'buche',
+        stere: product.stere,
+        label: product.stere + ' ' + pluralStere(product.stere),
+        detail: 'Chêne, frêne, hêtre, charme — 33/50 cm' + (product.stere >= FREE_DELIVERY_THRESHOLD ? ' · ' + t('buchesFreeBadge') : ''),
+        unitPrice: product.price,
+        qty: qty
+      });
+      addBtn.classList.add('added');
+      addBtn.textContent = t('addedBtn');
+      setTimeout(function(){ addBtn.classList.remove('added'); addBtn.textContent = t('addBtn'); }, 1400);
+    }
+  });
+
+  /* ---------------- GRANULE GRID ---------------- */
+  var granuleGrid = document.getElementById('granuleGrid');
+  var granuleQty = {};
+  GRANULES.forEach(function(g){ granuleQty[g.id] = 1; });
+
+  function renderGranuleGrid(){
+    granuleGrid.innerHTML = GRANULES.map(function(g){
+      var name = t(g.key + '_name'), badge = t(g.key + '_badge'), desc = t(g.key + '_desc');
+      var priceHtml = g.price === null
+        ? '<span class="granule-price quote">' + t('granuleQuote') + '</span>'
+        : '<span class="granule-price mono">' + fmt(g.price) + '<small> / ' + t('unitPallet') + '</small></span>';
+      var btnLabel = g.price === null ? t('granuleQuoteBtn') : t('granuleAddBtn');
+      return (
+        '<div class="col-md-6 col-lg-4">' +
+        '<article class="granule-card">' +
+          '<div class="granule-media"><img src="' + g.img + '" alt="' + name + '"><span class="granule-badge">' + badge + '</span></div>' +
+          '<div class="granule-body">' +
+            '<h3>' + name + '</h3>' +
+            '<p class="desc">' + desc + '</p>' +
+            '<span class="granule-spec">' + t('granuleSpec') + '</span>' +
+            '<div class="granule-price-row">' + priceHtml +
+              '<div class="stepper" data-granule="' + g.id + '">' +
+                '<button type="button" data-act="dec" aria-label="-">−</button>' +
+                '<span class="qty mono" data-qty>' + granuleQty[g.id] + '</span>' +
+                '<button type="button" data-act="inc" aria-label="+">+</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="granule-foot"><button type="button" class="add-btn" data-add-granule="' + g.id + '">' + btnLabel + '</button></div>' +
+          '</div>' +
+        '</article></div>'
+      );
+    }).join('');
+  }
+  renderGranuleGrid();
+
+  granuleGrid.addEventListener('click', function(e){
+    var stepBtn = e.target.closest('[data-act]');
+    if(stepBtn){
+      var wrap = stepBtn.closest('[data-granule]');
+      var id = wrap.getAttribute('data-granule');
+      var d = stepBtn.getAttribute('data-act') === 'inc' ? 1 : -1;
+      granuleQty[id] = Math.max(1, (granuleQty[id]||1) + d);
+      wrap.querySelector('[data-qty]').textContent = granuleQty[id];
+      return;
+    }
+    var addBtn = e.target.closest('[data-add-granule]');
+    if(addBtn){
+      var gid = addBtn.getAttribute('data-add-granule');
+      var product = GRANULES.filter(function(g){ return g.id === gid; })[0];
+      var qty = granuleQty[gid] || 1;
+      addToCart({
+        id: 'granule-' + product.id,
+        kind: 'granule',
+        label: t(product.key + '_name'),
+        detail: t('granuleSpec'),
+        unitPrice: product.price,
+        qty: qty
+      });
+      addBtn.classList.add('added');
+      addBtn.textContent = product.price === null ? t('granuleQuotedBtn') : t('addedBtn');
+      setTimeout(function(){
+        addBtn.classList.remove('added');
+        addBtn.textContent = product.price === null ? t('granuleQuoteBtn') : t('granuleAddBtn');
+      }, 1400);
+    }
+  });
+
+  /* ---------------- COUNTS ---------------- */
+  var fabCount = document.getElementById('fabCount');
+  var headerCount = document.getElementById('headerCount');
+  function renderCounts(){
+    var n = cartCount();
+    headerCount.textContent = n;
+    if(n > 0){ fabCount.hidden = false; fabCount.textContent = n; } else { fabCount.hidden = true; }
+  }
+  renderCounts();
+  /* ---------------- DRAWER (Bootstrap Offcanvas) ---------------- */
+  var drawerTitle = document.getElementById('drawerTitle');
+  var drawerBody = document.getElementById('drawerBody');
+  var drawerFoot = document.getElementById('drawerFoot');
+
+  function openDrawer(startView){ view = startView || 'cart'; renderDrawer(); getOffcanvas().show(); }
+  document.getElementById('cartFab').addEventListener('click', function(){ openDrawer('cart'); });
+  document.getElementById('openCartBtn').addEventListener('click', function(){ openDrawer('cart'); });
+  document.getElementById('contactOrderBtn').addEventListener('click', function(){ openDrawer('cart'); });
+
+  function renderDrawer(){
+    if(view === 'cart') renderCartView();
+    else if(view === 'checkout') renderCheckoutView();
+    else renderConfirmView();
+  }
+
+  function renderCartView(){
+    drawerTitle.textContent = t('cartTitle');
+    if(cart.length === 0){
+      drawerBody.innerHTML =
+        '<div class="empty-state">' +
+          '<span class="icon">🪵</span>' +
+          '<div>' + t('cartEmptyTitle') + '</div>' +
+          '<div style="font-size:.85rem">' + t('cartEmptyText') + '</div>' +
+        '</div>';
+      drawerFoot.innerHTML = '<button class="btn btn-outline-wood w-100 rounded-pill-btn" id="btnBrowse" type="button">' + t('cartBrowseBtn') + '</button>';
+      document.getElementById('btnBrowse').addEventListener('click', function(){ getOffcanvas().hide(); location.hash = '#buches'; });
+      return;
+    }
+
+    drawerBody.innerHTML = cart.map(function(l){
+      var priceLabel = typeof l.unitPrice === 'number' ? fmt(l.unitPrice * l.qty) : t('granuleQuote');
+      return (
+        '<div class="cart-line">' +
+          '<div class="line-info"><b>' + l.label + '</b><span>' + l.detail + '</span></div>' +
+          '<div class="line-right">' +
+            '<span class="line-price mono">' + priceLabel + '</span>' +
+            '<div class="stepper" data-line="' + l.id + '">' +
+              '<button type="button" data-act="dec" aria-label="-">−</button>' +
+              '<span class="qty mono">' + l.qty + '</span>' +
+              '<button type="button" data-act="inc" aria-label="+">+</button>' +
+            '</div>' +
+            '<button type="button" class="line-remove" data-remove="' + l.id + '">' + t('cartRemove') + '</button>' +
+          '</div>' +
+        '</div>'
+      );
+    }).join('');
+
+    var total = cartTotal();
+    var stereTotal = cartStereTotal();
+    var deliveryNote = stereTotal > 0 && stereTotal < FREE_DELIVERY_THRESHOLD
+      ? '<div class="summary-note">' + t('cartNoteRemaining', {n: FREE_DELIVERY_THRESHOLD - stereTotal}) + '</div>'
+      : (hasQuoteItems() ? '<div class="summary-note">' + t('cartNoteQuote') + '</div>' : '<div class="summary-note">' + t('cartNoteFree') + '</div>');
+
+    drawerFoot.innerHTML =
+      '<div class="summary-row"><span>' + t('cartItemsLabel') + '</span><span class="mono">' + cartCount() + '</span></div>' +
+      '<div class="summary-row total"><span>' + t('cartTotalLabel') + '</span><span>' + fmt(total) + '</span></div>' +
+      deliveryNote +
+      '<button class="btn btn-brick w-100 rounded-pill-btn" id="btnCheckout" type="button" style="margin-top:14px">' + t('cartCheckoutBtn') + '</button>';
+
+    document.getElementById('btnCheckout').addEventListener('click', function(){ view = 'checkout'; renderDrawer(); });
+    drawerBody.querySelectorAll('[data-remove]').forEach(function(btn){ btn.addEventListener('click', function(){ removeLine(btn.getAttribute('data-remove')); }); });
+    drawerBody.querySelectorAll('[data-line]').forEach(function(wrap){
+      var id = wrap.getAttribute('data-line');
+      wrap.querySelectorAll('[data-act]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var l = findLine(id);
+          var d = btn.getAttribute('data-act') === 'inc' ? 1 : -1;
+          setLineQty(id, l.qty + d);
+        });
+      });
+    });
+  }
+
+  function renderCheckoutView(){
+    drawerTitle.innerHTML = '<button class="drawer-back" id="backToCart" type="button">' + t('checkoutBack') + '</button>';
+    var total = cartTotal();
+    drawerBody.innerHTML =
+      '<div class="checkout-recap">' +
+        cart.map(function(l){
+          var p = typeof l.unitPrice === 'number' ? fmt(l.unitPrice*l.qty) : t('granuleQuote');
+          return '<div class="cr-row"><span>' + l.qty + ' × ' + l.label + '</span><b>' + p + '</b></div>';
+        }).join('') +
+        '<div class="cr-row" style="margin-top:6px;padding-top:6px;border-top:1px solid var(--line)"><span>' + t('cartTotalLabel') + '</span><b>' + fmt(total) + '</b></div>' +
+      '</div>' +
+      '<form id="checkoutForm" novalidate>' +
+        '<div class="row g-3">' +
+          field('prenom', t('fPrenom'), 'text', true, 'col-6') +
+          field('nom', t('fNom'), 'text', true, 'col-6') +
+          field('telephone', t('fTelephone'), 'tel', true, 'col-6') +
+          field('email', t('fEmail'), 'email', true, 'col-6') +
+          field('adresse', t('fAdresse'), 'text', true, 'col-12') +
+          field('cp', t('fCp'), 'text', true, 'col-6') +
+          field('ville', t('fVille'), 'text', true, 'col-6') +
+          field('pays', t('fPays'), 'text', true, 'col-12') +
+          field('date', t('fDate'), 'date', false, 'col-12') +
+          '<div class="field col-12" id="field-message"><label for="f-message">' + t('fMessage') + '</label>' +
+            '<textarea class="form-control" id="f-message" rows="3" placeholder="' + t('fMessagePh') + '"></textarea></div>' +
+        '</div>' +
+      '</form>';
+
+    drawerFoot.innerHTML =
+      '<div class="summary-row total" style="border-top:none;padding-top:0"><span>' + t('checkoutTotalLabel') + '</span><span>' + fmt(total) + '</span></div>' +
+      '<button class="btn btn-brick w-100 rounded-pill-btn" id="btnSubmitOrder" type="button" style="margin-top:12px">' + t('checkoutSubmitBtn') + '</button>';
+
+    document.getElementById('backToCart').addEventListener('click', function(){ view = 'cart'; renderDrawer(); });
+    document.getElementById('btnSubmitOrder').addEventListener('click', submitOrder);
+  }
+
+  function field(id, label, type, required, colClass){
+    return (
+      '<div class="field ' + colClass + '" id="field-' + id + '">' +
+        '<label for="f-' + id + '">' + label + (required ? ' *' : '') + '</label>' +
+        '<input class="form-control" id="f-' + id + '" type="' + type + '" ' + (required ? 'required' : '') + '>' +
+        '<div class="invalid-feedback">' + t('requiredError') + '</div>' +
+      '</div>'
+    );
+  }
+
+  function submitOrder(){
+    var ids = ['prenom','nom','telephone','email','adresse','cp','ville','pays'];
+    var values = {};
+    var valid = true;
+    ids.forEach(function(id){
+      var el = document.getElementById('f-' + id);
+      var val = el.value.trim();
+      var ok = val.length > 0 && (id !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+      el.classList.toggle('is-invalid', !ok);
+      if(!ok) valid = false;
+      values[id] = val;
+    });
+    values.date = document.getElementById('f-date').value;
+    values.message = document.getElementById('f-message').value.trim();
+    if(!valid){
+      var firstErr = drawerBody.querySelector('.is-invalid');
+      if(firstErr) firstErr.scrollIntoView({block:'center', behavior: prefersReduced() ? 'auto' : 'smooth'});
+      return;
+    }
+
+    lastOrder = {
+      number: 'BB-' + Math.floor(1000 + Math.random()*9000),
+      date: new Date(),
+      customer: values,
+      items: cart.slice(),
+      total: cartTotal(),
+      hasQuote: hasQuoteItems(),
+      freeDelivery: cartStereTotal() >= FREE_DELIVERY_THRESHOLD
+    };
+
+    cart = []; saveCart(); renderCounts();
+    view = 'confirm'; renderDrawer();
+    window.location.href = buildMailto(lastOrder);
+  }
+
+  function buildMailto(order){
+    var lines = [];
+    lines.push(t('mailOrderTitle', {num: order.number}));
+    lines.push('');
+    order.items.forEach(function(l){
+      var p = typeof l.unitPrice === 'number' ? fmt(l.unitPrice*l.qty) : t('granuleQuote');
+      lines.push('- ' + l.qty + ' x ' + l.label + ' (' + l.detail + ') : ' + p);
+    });
+    lines.push('');
+    lines.push(t('mailTotalLabel') + fmt(order.total) + (order.hasQuote ? t('mailQuoteSuffix') : '') + (order.freeDelivery ? t('mailFreeSuffix') : ''));
+    lines.push('');
+    lines.push(t('mailClient') + order.customer.prenom + ' ' + order.customer.nom);
+    lines.push(t('mailPhone') + order.customer.telephone);
+    lines.push(t('mailEmail') + order.customer.email);
+    lines.push(t('mailAddress') + order.customer.adresse + ', ' + order.customer.cp + ' ' + order.customer.ville);
+    lines.push(t('mailCountry') + order.customer.pays);
+    if(order.customer.date) lines.push(t('mailDate') + order.customer.date);
+    if(order.customer.message) lines.push(t('mailInstructions') + order.customer.message);
+
+    var subject = encodeURIComponent(t('mailSubject', {num: order.number}));
+    var body = encodeURIComponent(lines.join('\n'));
+    return 'mailto:' + ORDER_EMAIL + '?subject=' + subject + '&body=' + body;
+  }
+
+  function buildWhatsappLink(order){
+    var lines = [];
+    lines.push(t('waGreeting', {num: order.number}));
+    order.items.forEach(function(l){
+      var p = typeof l.unitPrice === 'number' ? fmt(l.unitPrice*l.qty) : t('granuleQuote');
+      lines.push(l.qty + ' x ' + l.label + ' — ' + p);
+    });
+    lines.push(t('waTotal') + fmt(order.total));
+    lines.push(t('waDelivery') + order.customer.adresse + ', ' + order.customer.cp + ' ' + order.customer.ville + ', ' + order.customer.pays);
+    return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+  }
+
+  function buildRecapText(order){
+    var lines = [];
+    lines.push(t('mailOrderTitle', {num: order.number}));
+    order.items.forEach(function(l){
+      var p = typeof l.unitPrice === 'number' ? fmt(l.unitPrice*l.qty) : t('granuleQuote');
+      lines.push(l.qty + ' x ' + l.label + ' — ' + p);
+    });
+    lines.push(t('cartTotalLabel') + ' : ' + fmt(order.total));
+    lines.push(order.customer.prenom + ' ' + order.customer.nom + ' — ' + order.customer.telephone);
+    lines.push(order.customer.adresse + ', ' + order.customer.cp + ' ' + order.customer.ville + ', ' + order.customer.pays);
+    return lines.join('\n');
+  }
+
+  function renderConfirmView(){
+    drawerTitle.textContent = t('confirmTitle');
+    if(!lastOrder){ view = 'cart'; renderDrawer(); return; }
+    var o = lastOrder;
+    drawerBody.innerHTML =
+      '<div class="confirm-wrap">' +
+        '<div class="confirm-icon">✓</div>' +
+        '<h3 style="font-size:1.3rem">' + t('confirmThanks', {name: o.customer.prenom}) + '</h3>' +
+        '<p style="color:var(--ink-soft);margin-top:6px">' + t('confirmText') + '</p>' +
+        '<div class="confirm-order-no mono">' + t('confirmOrderNo', {num: o.number}) + '</div>' +
+        '<div class="confirm-recap">' +
+          '<h5>' + t('confirmRecapTitle') + '</h5>' +
+          o.items.map(function(l){
+            var p = typeof l.unitPrice === 'number' ? fmt(l.unitPrice*l.qty) : t('granuleQuote');
+            return '<div class="cr-item"><span>' + l.qty + ' × ' + l.label + '</span><span class="mono">' + p + '</span></div>';
+          }).join('') +
+          '<div class="cr-item" style="border-bottom:none;font-weight:700"><span>' + t('confirmTotalLabel') + '</span><span class="mono">' + fmt(o.total) + '</span></div>' +
+        '</div>' +
+        '<div class="confirm-actions">' +
+          '<a class="btn btn-brick w-100 rounded-pill-btn" href="' + buildMailto(o) + '">' + t('confirmBtnEmail') + '</a>' +
+          '<a class="btn w-100 rounded-pill-btn" style="background:var(--whatsapp);color:#fff" href="' + buildWhatsappLink(o) + '" target="_blank" rel="noopener">' + t('confirmBtnWhatsapp') + '</a>' +
+          '<button class="btn btn-outline-wood w-100 rounded-pill-btn" id="btnCopy" type="button">' + t('confirmBtnCopy') + '</button>' +
+          '<button class="btn btn-outline-wood w-100 rounded-pill-btn" id="btnNewOrder" type="button">' + t('confirmBtnNew') + '</button>' +
+        '</div>' +
+      '</div>';
+    drawerFoot.innerHTML = '';
+
+    document.getElementById('btnCopy').addEventListener('click', function(){ copyText(buildRecapText(o)); });
+    document.getElementById('btnNewOrder').addEventListener('click', function(){ lastOrder = null; view = 'cart'; renderDrawer(); });
+  }
+
+  function copyText(text){
+    var done = function(){ showToast(t('toastCopied')); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done).catch(function(){ fallbackCopy(text, done); });
+    } else { fallbackCopy(text, done); }
+  }
+  function fallbackCopy(text, done){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta);
+      done();
+    }catch(e){ showToast(t('toastCopyFail')); }
+  }
+
+  /* ---------------- TOAST ---------------- */
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg; toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2200);
+  }
+  function prefersReduced(){ return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+  /* ---------------- INIT ---------------- */
+  buildLangMenu();
+  applyStaticTranslations();
+  route();
+  if(!location.hash) history.replaceState(null, '', '#accueil');
+})();
+
+</script>
